@@ -35,6 +35,11 @@ The preferred direction is:
 3. apply config with `bootstrap/apply-chezmoi.sh`
 4. add config and tooling incrementally
 
+Current context support:
+
+- host bootstrap supports `work` and `private`
+- VM creation remains `context=work` only for now
+
 ## Minimal First Slice
 
 The first slice aims to prove the architecture, not full parity.
@@ -61,6 +66,7 @@ Included now:
   - minimal `starship` prompt config via `chezmoi`, installed through `mise`
   - minimal `tmux` config via `chezmoi`, installed via the host and Fedora package managers
   - core shell helper tools for `z`, `zl`, file search, and listing aliases
+  - dev runtime and LSP install path via context-aware `mise` config, with `metals` installed through `coursier` as the one architecture-specific exception
 
 Note: the host `,dev` entry uses `sudo -iu dev` inside the VM so the `dev` login sees the shared `devvm` group membership established during first boot.
 

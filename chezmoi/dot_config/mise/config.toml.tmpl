@@ -1,0 +1,44 @@
+[settings]
+experimental = true
+install_before = "7d"
+ruby.compile = false
+
+[tools]
+opencode = "latest"
+starship = "latest"
+{{- if and (eq .target "dev") (eq .context "work") }}
+ruby = "latest"
+go = "latest"
+node = "lts"
+java = "temurin-21"
+helm-ls = "latest"
+shfmt = "latest"
+yq = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"npm:yaml-language-server" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:@microsoft/compose-language-service" = "latest"
+"gem:ruby-lsp" = "latest"
+"gem:rufo" = "latest"
+"github:scalameta/scalafmt" = "latest"
+[tools."github:coursier/coursier"]
+version = "latest"
+asset_pattern = "coursier"
+bin = "cs"
+{{- end }}
+{{- if and (eq .target "dev") (eq .context "private") }}
+go = "latest"
+erlang = "latest"
+elixir = "latest"
+elixir-ls = "latest"
+shfmt = "latest"
+yq = "latest"
+"go:golang.org/x/tools/gopls" = "latest"
+"npm:yaml-language-server" = "latest"
+"npm:bash-language-server" = "latest"
+"npm:vscode-langservers-extracted" = "latest"
+"npm:dockerfile-language-server-nodejs" = "latest"
+"npm:@microsoft/compose-language-service" = "latest"
+{{- end }}

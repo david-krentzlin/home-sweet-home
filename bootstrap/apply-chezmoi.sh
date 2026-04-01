@@ -81,7 +81,9 @@ fi
 
 mkdir -p "$(dirname "$STATE_FILE")"
 
-TMP_CONFIG="$(mktemp "${TMPDIR:-/tmp}/agentex-chezmoi-config.XXXXXX.toml")"
+TMP_CONFIG_BASE="$(mktemp "${TMPDIR:-/tmp}/agentex-chezmoi-config.XXXXXX")"
+TMP_CONFIG="$TMP_CONFIG_BASE.toml"
+mv "$TMP_CONFIG_BASE" "$TMP_CONFIG"
 cleanup() {
 	rm -f "$TMP_CONFIG"
 }
@@ -107,5 +109,16 @@ if [[ "$DEST_DIR" == "$HOME" && -f "$HOME/.config/mise/config.toml" ]] && comman
 		cd "$HOME"
 		mise trust "$HOME/.config/mise/config.toml"
 		mise install
+	)
+fi
+
+if [[ "$DEST_DIR" == "$HOME" && "$TARGET" == "dev" && "$CONTEXT" == "work" ]] && command -v mise >/dev/null 2>&1; then
+	(
+		cd "$HOME"
+		if mise exec -- sh -lc 'command -v helm_ls >/dev/null 2>&1' && [[ ! -e "$HOME/.local/bin/helm-ls" ]]; then
+			mkdir -p "$HOME/.local/bin"
+			ln -s "$(mise exec -- sh -lc 'command -v helm_ls')" "$HOME/.local/bin/helm-ls"
+		fi
+		COURSIER_INSTALL_DIR="$HOME/.local/bin" mise exec -- cs install --install-dir "$HOME/.local/bin" metals
 	)
 fi

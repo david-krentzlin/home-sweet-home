@@ -29,6 +29,14 @@ cd agentex
 ./bootstrap/vm/macos-create-fedora.sh
 ```
 
+For a private host-only render, use:
+
+```bash
+./bootstrap/host/macos.sh --context private
+```
+
+VM creation is still `context=work` only.
+
 Apply host configuration:
 
 ```bash

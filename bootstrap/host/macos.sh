@@ -27,7 +27,7 @@ while [[ $# -gt 0 ]]; do
 		shift
 		;;
 	-h | --help)
-		echo "Usage: bootstrap/host/macos.sh [--context work] [--skip-apply]"
+		echo "Usage: bootstrap/host/macos.sh [--context work|private] [--skip-apply]"
 		exit 0
 		;;
 	*)
@@ -37,8 +37,8 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
-if [[ "$CONTEXT" != "work" ]]; then
-	echo "Error: only context=work is implemented right now." >&2
+if [[ "$CONTEXT" != "work" && "$CONTEXT" != "private" ]]; then
+	echo "Error: context must be one of: work, private." >&2
 	exit 1
 fi
 
@@ -54,7 +54,7 @@ if ! command -v tmux >/dev/null 2>&1; then
 	brew install tmux
 fi
 
-if ! brew list --formula openjdk@21 >/dev/null 2>&1; then
+if [[ "$CONTEXT" == "work" ]] && ! brew list --formula openjdk@21 >/dev/null 2>&1; then
 	brew install openjdk@21
 fi
 
