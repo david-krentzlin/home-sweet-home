@@ -3,3 +3,7 @@ typeset -U path PATH
 if [[ -d /opt/homebrew/bin ]]; then
 	path=(/opt/homebrew/bin /opt/homebrew/sbin $path)
 fi
+
+eval $(/opt/homebrew/bin/brew shellenv)
+[ -r /opt/homebrew/opt/zsh-fast-syntx-highlighting ] && source /opt/homebrew/opt/zsh-fast-syntax-highlighting/share/zsh-fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+[ -r /opt/homebrew/opt/zsh-autosuggestions ] && source /opt/homebrew/opt/zsh-autosuggestions/share/zsh-autosuggestions/zsh-autosuggestions.zsh
