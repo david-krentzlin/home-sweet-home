@@ -1,0 +1,17 @@
+export ZSH_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+
+if [[ $- != *i* ]]; then
+	return
+fi
+
+export ZSH_STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/zsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+
+mkdir -p "$ZSH_STATE_DIR" "$ZSH_CACHE_DIR"
+
+if [[ -d "$ZSH_CONFIG_DIR/rc.d" ]]; then
+	for file in "$ZSH_CONFIG_DIR"/rc.d/*; do
+		[[ -f "$file" || -L "$file" ]] || continue
+		source "$file"
+	done
+fi
