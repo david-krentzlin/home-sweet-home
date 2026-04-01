@@ -5,5 +5,10 @@ format = "[ VM {{ .target }} ](bold black bg:yellow)$directory$git_branch$git_st
 {{- end }}
 
 [character]
+{{- if eq .target "host" }}
  success_symbol = "[>](bold green)"
  error_symbol = "[>](bold red)"
+{{- else }}
+ success_symbol = "[vm>](bold yellow)"
+ error_symbol = "[vm!](bold red)"
+{{- end }}
