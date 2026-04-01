@@ -120,6 +120,7 @@ fi
 
 limactl shell --workdir /home/dev "$INSTANCE_NAME" bash -lc "sudo rpm -q zsh-autosuggestions >/dev/null 2>&1 || sudo dnf install -y zsh-autosuggestions"
 limactl shell --workdir /home/dev "$INSTANCE_NAME" bash -lc "command -v ssh-keygen >/dev/null 2>&1 || sudo dnf install -y openssh-clients"
+limactl shell --workdir /home/dev "$INSTANCE_NAME" bash -lc "command -v podman >/dev/null 2>&1 || sudo dnf install -y podman"
 limactl shell --workdir /home/dev "$INSTANCE_NAME" sudo -iu "$TARGET" bash -lc "mkdir -p \"\$HOME/.ssh\" && chmod 700 \"\$HOME/.ssh\" && if [[ ! -f \"\$HOME/.ssh/id_ed25519\" ]]; then ssh-keygen -q -t ed25519 -N '' -C \"$TARGET@$INSTANCE_NAME\" -f \"\$HOME/.ssh/id_ed25519\"; fi && chmod 600 \"\$HOME/.ssh/id_ed25519\" && chmod 644 \"\$HOME/.ssh/id_ed25519.pub\""
 
 printf -v REPO_PATH_Q '%q' "$REPO_PATH"
