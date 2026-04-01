@@ -1,19 +1,14 @@
 # home-sweet-home
 
-Private bootstrap repo for your macOS host and your Fedora Lima dev VM.
+Setup my environments for both work and private context.
+Manage dotfiles and unified tools.
 
-## What To Use
-
-Use these scripts only:
-
-- `bootstrap/host/macos.sh` to set up the macOS host
-- `bootstrap/vm/macos-create-fedora.sh` to create the Fedora dev VM
-- `bootstrap/vm/apply-user.sh` to apply `dev` or `agent` config from the host into the VM
-- `bootstrap/apply-chezmoi.sh` to apply config on the host or inside the VM
 
 ## First-Time Setup
 
-1. Clone this repo on your Mac.
+### Work
+
+1. Clone this repo on your mac.
 2. Run the host bootstrap.
 
 ```bash
@@ -40,6 +35,8 @@ If `/workspaces/home-sweet-home` is missing in the VM, the helper clones it auto
 ./bootstrap/vm/apply-user.sh --target agent --context work
 ```
 
+Run the two helper commands in that order.
+
 6. Open the VM as `dev` or `agent` when you need a shell.
 
 ```bash
@@ -51,63 +48,18 @@ Use `,dev` and `,agent` instead of raw `limactl shell` commands.
 
 Repos under `/workspaces` are intended to be shared between `dev` and `agent`.
 
-## What You Get
+## What you get
 
-- macOS host tools installed with Homebrew
-- a Fedora Lima VM named `dev`
-- host entry commands: `,dev` and `,agent`
-- `chezmoi`-managed config for `host`, `dev`, and `agent`
-- `mise` config applied when available
-
-## Global Vs Repo Tools
-
-Global `dev` tools are kept intentionally small:
-
-- Go
-- Bun
-- Node
-- Scala support for `work` via Java, `coursier`, `scalafmt`, and `metals`
-- shared data and shell tooling like `gopls`, `shfmt`, `yq`, YAML, Bash, Docker, and Compose language servers
-
-Language runtimes that usually vary by project should be installed per repository instead of globally.
-
-- Ruby: install per repo
-- Elixir and Erlang: install per repo
+* Managed dotfiles for your host machine
+* A virtual machine that is used to isolate all development from the host system 
+* Managed dotfiles for the dev user in the dev vm
+* [Optional] an agent setup for a development agent using opencode in the dev vm
 
 ## Daily Use
 
 - Open the dev shell with `,dev`
 - Open the agent shell with `,agent`
-- Keep shared repos under `/workspaces`
-- Pull repo changes and re-run `bootstrap/vm/apply-user.sh` for `dev` or `agent`
-
-The helper only clones `/workspaces/home-sweet-home` when it is missing. If the repo already exists in the VM, update it there before re-applying.
-
-## Re-Apply Config
-
-On macOS host:
-
-```bash
-./bootstrap/apply-chezmoi.sh --target host --context work
-```
-
-From the host for VM `dev` user:
-
-```bash
-./bootstrap/vm/apply-user.sh --target dev --context work
-```
-
-From the host for VM `agent` user:
-
-```bash
-./bootstrap/vm/apply-user.sh --target agent --context work
-```
-
-## Prompted Values
-
-The `chezmoi` apply script will prompt for:
-
-- git author name
-- git author email
-- GitHub username
-- work username when `--context work` is used
+- Keep shared repos under `/workspaces` on the vm
+- Pull repo changes in the VM repo checkout under `/workspaces/home-sweet-home`
+- Re-run `bootstrap/vm/apply-user.sh` for `dev` or `agent`
+- Apply `dev` first, then `agent`, if you are updating both
