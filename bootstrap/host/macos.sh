@@ -13,6 +13,7 @@ fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+BREWFILE_WORK="$SCRIPT_DIR/Brewfile.work"
 CONTEXT="work"
 SKIP_APPLY=0
 
@@ -42,24 +43,17 @@ if [[ "$CONTEXT" != "work" && "$CONTEXT" != "private" ]]; then
 	exit 1
 fi
 
-if ! command -v chezmoi >/dev/null 2>&1; then
-	brew install chezmoi
-fi
+if [[ "$CONTEXT" == "work" ]]; then
+	if [[ ! -f "$BREWFILE_WORK" ]]; then
+		echo "Error: Homebrew work bundle file not found: $BREWFILE_WORK" >&2
+		exit 1
+	fi
 
-if ! command -v limactl >/dev/null 2>&1; then
-	brew install lima
-fi
+	brew bundle --file "$BREWFILE_WORK"
 
-if ! command -v tmux >/dev/null 2>&1; then
-	brew install tmux
-fi
-
-if [[ "$CONTEXT" == "work" ]] && ! brew list --formula openjdk@21 >/dev/null 2>&1; then
-	brew install openjdk@21
-fi
-
-if ! command -v bat >/dev/null 2>&1 || ! command -v eza >/dev/null 2>&1 || ! command -v fd >/dev/null 2>&1 || ! command -v rg >/dev/null 2>&1 || ! command -v zoxide >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1; then
-	brew install bat eza fd ripgrep zoxide fzf
+	if ! brew list --cask wezterm >/dev/null 2>&1 && ! brew list --cask wezterm@nightly >/dev/null 2>&1; then
+		brew install --cask wezterm
+	fi
 fi
 
 if [[ "$SKIP_APPLY" -eq 0 ]]; then

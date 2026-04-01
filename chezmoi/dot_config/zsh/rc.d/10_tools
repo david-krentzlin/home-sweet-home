@@ -11,6 +11,15 @@ if command -v bat >/dev/null 2>&1; then
 	alias less=bat
 fi
 
+dir_colors_file="${XDG_CONFIG_HOME:-$HOME/.config}/dir_colors"
+if [[ -f "$dir_colors_file" ]]; then
+	if command -v dircolors >/dev/null 2>&1; then
+		eval "$(dircolors -b "$dir_colors_file")"
+	elif command -v gdircolors >/dev/null 2>&1; then
+		eval "$(gdircolors -b "$dir_colors_file")"
+	fi
+fi
+
 if command -v eza >/dev/null 2>&1; then
 	alias l='eza --all --long'
 	alias ll='eza'

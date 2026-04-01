@@ -81,7 +81,7 @@ fi
 
 mkdir -p "$(dirname "$STATE_FILE")"
 
-TMP_CONFIG_BASE="$(mktemp "${TMPDIR:-/tmp}/agentex-chezmoi-config.XXXXXX")"
+TMP_CONFIG_BASE="$(mktemp "${TMPDIR:-/tmp}/home-sweet-home-chezmoi-config.XXXXXX")"
 TMP_CONFIG="$TMP_CONFIG_BASE.toml"
 mv "$TMP_CONFIG_BASE" "$TMP_CONFIG"
 cleanup() {
