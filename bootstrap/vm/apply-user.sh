@@ -1,0 +1,135 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v limactl >/dev/null 2>&1; then
+	echo "Error: limactl is required but was not found on PATH." >&2
+	exit 1
+fi
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+INSTANCE_NAME="dev"
+TARGET=""
+CONTEXT="work"
+REPO_PATH="/workspaces/home-sweet-home"
+REPO_URL=""
+NAME=""
+EMAIL=""
+GITHUB_USERNAME=""
+WORK_USERNAME=""
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+	--vm-name)
+		INSTANCE_NAME="$2"
+		shift 2
+		;;
+	--target)
+		TARGET="$2"
+		shift 2
+		;;
+	--context)
+		CONTEXT="$2"
+		shift 2
+		;;
+	--repo-path)
+		REPO_PATH="$2"
+		shift 2
+		;;
+	--repo-url)
+		REPO_URL="$2"
+		shift 2
+		;;
+	--name)
+		NAME="$2"
+		shift 2
+		;;
+	--email)
+		EMAIL="$2"
+		shift 2
+		;;
+	--github-username)
+		GITHUB_USERNAME="$2"
+		shift 2
+		;;
+	--work-username)
+		WORK_USERNAME="$2"
+		shift 2
+		;;
+	-h | --help)
+		echo "Usage: bootstrap/vm/apply-user.sh --target {dev|agent} [--vm-name NAME] [--context work] [--repo-path DIR] [--repo-url URL] [--name NAME] [--email EMAIL] [--github-username USERNAME] [--work-username USERNAME]"
+		exit 0
+		;;
+	*)
+		echo "Error: unknown argument '$1'." >&2
+		exit 1
+		;;
+	esac
+done
+
+if [[ "$TARGET" != "dev" && "$TARGET" != "agent" ]]; then
+	echo "Error: --target must be one of: dev, agent." >&2
+	exit 1
+fi
+
+if [[ "$CONTEXT" != "work" ]]; then
+	echo "Error: only context=work is implemented right now." >&2
+	exit 1
+fi
+
+if [[ -z "$REPO_URL" ]]; then
+	if ! command -v git >/dev/null 2>&1; then
+		echo "Error: git is required to derive the VM clone URL from this checkout." >&2
+		exit 1
+	fi
+
+	REPO_URL="$(git -C "$REPO_ROOT" config --get remote.origin.url || true)"
+	if [[ -z "$REPO_URL" ]]; then
+		echo "Error: could not determine remote.origin.url from this checkout. Pass --repo-url explicitly." >&2
+		exit 1
+	fi
+
+	case "$REPO_URL" in
+	git@github.com:*)
+		REPO_URL="https://github.com/${REPO_URL#git@github.com:}"
+		;;
+	ssh://git@github.com/*)
+		REPO_URL="https://github.com/${REPO_URL#ssh://git@github.com/}"
+		;;
+	esac
+fi
+
+APPLY_ARGS=(./bootstrap/apply-chezmoi.sh --target "$TARGET" --context "$CONTEXT")
+
+if [[ -n "$NAME" ]]; then
+	APPLY_ARGS+=(--name "$NAME")
+fi
+
+if [[ -n "$EMAIL" ]]; then
+	APPLY_ARGS+=(--email "$EMAIL")
+fi
+
+if [[ -n "$GITHUB_USERNAME" ]]; then
+	APPLY_ARGS+=(--github-username "$GITHUB_USERNAME")
+fi
+
+if [[ -n "$WORK_USERNAME" ]]; then
+	APPLY_ARGS+=(--work-username "$WORK_USERNAME")
+fi
+
+printf -v REPO_PATH_Q '%q' "$REPO_PATH"
+printf -v REPO_PARENT_Q '%q' "$(dirname "$REPO_PATH")"
+printf -v REPO_URL_Q '%q' "$REPO_URL"
+printf -v APPLY_CMD '%q ' "${APPLY_ARGS[@]}"
+
+repo_status=0
+limactl shell --workdir /home/dev "$INSTANCE_NAME" sudo -iu dev bash -lc "if [[ -f $REPO_PATH_Q/bootstrap/apply-chezmoi.sh ]]; then exit 0; fi; if [[ -e $REPO_PATH_Q ]]; then echo 'Error: repo path exists in VM but does not look like home-sweet-home: $REPO_PATH' >&2; exit 1; fi; exit 2" || repo_status=$?
+
+if [[ $repo_status -eq 2 ]]; then
+	limactl shell --workdir /home/dev "$INSTANCE_NAME" sudo -iu dev bash -lc "mkdir -p $REPO_PARENT_Q && git clone $REPO_URL_Q $REPO_PATH_Q && chgrp -R devvm $REPO_PATH_Q && chmod -R g+rwX $REPO_PATH_Q && find $REPO_PATH_Q -type d -exec chmod g+s {} +"
+elif [[ $repo_status -ne 0 ]]; then
+	exit "$repo_status"
+fi
+
+exec limactl shell --workdir /home/dev "$INSTANCE_NAME" sudo -iu "$TARGET" bash -lc "cd $REPO_PATH_Q; $APPLY_CMD"

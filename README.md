@@ -8,6 +8,7 @@ Use these scripts only:
 
 - `bootstrap/host/macos.sh` to set up the macOS host
 - `bootstrap/vm/macos-create-fedora.sh` to create the Fedora dev VM
+- `bootstrap/vm/apply-user.sh` to apply `dev` or `agent` config from the host into the VM
 - `bootstrap/apply-chezmoi.sh` to apply config on the host or inside the VM
 
 ## First-Time Setup
@@ -25,41 +26,30 @@ Use these scripts only:
 ./bootstrap/vm/macos-create-fedora.sh --context work
 ```
 
-4. Open the VM as the `dev` user.
+4. From the host, apply the `dev` user config into the VM.
+
+```bash
+./bootstrap/vm/apply-user.sh --target dev --context work
+```
+
+If `/workspaces/home-sweet-home` is missing in the VM, the helper clones it automatically.
+
+5. From the host, apply the `agent` user config into the VM.
+
+```bash
+./bootstrap/vm/apply-user.sh --target agent --context work
+```
+
+6. Open the VM as `dev` or `agent` when you need a shell.
 
 ```bash
 ,dev
+,agent
 ```
 
 Use `,dev` and `,agent` instead of raw `limactl shell` commands.
 
-5. Inside the VM, clone this repo into `/workspaces`.
-
-```bash
-git clone <private-repo-url> /workspaces/home-sweet-home
-cd /workspaces/home-sweet-home
-```
-
-Repos cloned under `/workspaces` are intended to be shared between `dev` and `agent`.
-
-6. Apply the `dev` user config inside the VM.
-
-```bash
-./bootstrap/apply-chezmoi.sh --target dev --context work
-```
-
-7. Open the VM as the `agent` user.
-
-```bash
-,agent
-```
-
-8. Apply the `agent` user config from the same repo checkout.
-
-```bash
-cd /workspaces/home-sweet-home
-./bootstrap/apply-chezmoi.sh --target agent --context work
-```
+Repos under `/workspaces` are intended to be shared between `dev` and `agent`.
 
 ## What You Get
 
@@ -89,7 +79,9 @@ Language runtimes that usually vary by project should be installed per repositor
 - Open the dev shell with `,dev`
 - Open the agent shell with `,agent`
 - Keep shared repos under `/workspaces`
-- Pull repo changes and re-run `bootstrap/apply-chezmoi.sh` for the target you changed
+- Pull repo changes and re-run `bootstrap/vm/apply-user.sh` for `dev` or `agent`
+
+The helper only clones `/workspaces/home-sweet-home` when it is missing. If the repo already exists in the VM, update it there before re-applying.
 
 ## Re-Apply Config
 
@@ -99,16 +91,16 @@ On macOS host:
 ./bootstrap/apply-chezmoi.sh --target host --context work
 ```
 
-Inside the VM as `dev`:
+From the host for VM `dev` user:
 
 ```bash
-./bootstrap/apply-chezmoi.sh --target dev --context work
+./bootstrap/vm/apply-user.sh --target dev --context work
 ```
 
-Inside the VM as `agent`:
+From the host for VM `agent` user:
 
 ```bash
-./bootstrap/apply-chezmoi.sh --target agent --context work
+./bootstrap/vm/apply-user.sh --target agent --context work
 ```
 
 ## Prompted Values
@@ -119,10 +111,3 @@ The `chezmoi` apply script will prompt for:
 - git author email
 - GitHub username
 - work username when `--context work` is used
-
-## Current Limits
-
-- VM setup currently supports only `--context work`
-- `--context private` is only for the macOS host flow right now
-- The repo is not mounted automatically into the VM, so keep a clone in `/workspaces/home-sweet-home`
-- Copying files into `/workspaces` with `tar` can preserve restrictive modes; normal `git clone` is the supported flow
