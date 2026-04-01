@@ -59,6 +59,8 @@ Repos under `/workspaces` are intended to be shared between `dev` and `agent`.
 
 - Open the dev shell with `,dev`
 - Open the agent shell with `,agent`
+- Show the VM IP with `,vm-ip`
+- Open a VM-hosted service in the browser with `,vm-open 9000`
 - Keep shared repos under `/workspaces` on the vm
 - Pull repo changes in the VM repo checkout under `/workspaces/home-sweet-home`
 - Re-run `bootstrap/vm/apply-user.sh` for `dev` or `agent`
@@ -107,6 +109,7 @@ Notes:
 - Use the same port number on the host for localhost-forwarded services
 - Use the VM IP for services bound to `0.0.0.0`
 - Existing VMs need a one-time `vzNAT` network update and restart to pick this up
+- Host helpers: `,vm-ip` prints the VM IP and `,vm-open [PORT]` opens `http://<vm-ip>[:PORT]`
 
 ## Sync JFrog Credentials To The VM
 
