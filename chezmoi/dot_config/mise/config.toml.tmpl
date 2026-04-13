@@ -32,7 +32,7 @@ yq = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
 {{- end }}
 {{- if and (not $host) $work }}
-java = "temurin-21"
+java = "latest"
 {{- end }}
 {{- if and .develop $work }}
 helm-ls = "latest"
