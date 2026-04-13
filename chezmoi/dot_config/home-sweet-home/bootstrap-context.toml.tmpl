@@ -1,4 +1,6 @@
+{{- $needsNeovim := .develop -}}
+{{- if hasKey . "needs_neovim" }}{{- $needsNeovim = .needs_neovim }}{{- end }}
 develop = {{ .develop }}
 needs_opencode = {{ .needs_opencode }}
-needs_neovim = {{ .needs_neovim }}
+needs_neovim = {{ $needsNeovim }}
 work = {{ if ne .work_username "" }}true{{ else }}false{{ end }}

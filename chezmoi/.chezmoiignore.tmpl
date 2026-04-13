@@ -1,5 +1,7 @@
 {{- $host := and (not .develop) (not .needs_opencode) -}}
 {{- $work := ne .work_username "" -}}
+{{- $needsNeovim := .develop -}}
+{{- if hasKey . "needs_neovim" }}{{- $needsNeovim = .needs_neovim }}{{- end }}
 {{- if not $host }}
 .local/bin/,dev
 .local/bin/,agent
@@ -27,6 +29,6 @@
 .config/opencode
 .config/opencode/**
 {{- end }}
-{{- if not .needs_neovim }}
+{{- if not $needsNeovim }}
 .config/zsh/rc.d/30_nvim
 {{- end }}

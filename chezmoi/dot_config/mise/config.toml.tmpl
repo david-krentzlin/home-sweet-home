@@ -1,5 +1,7 @@
 {{- $host := and (not .develop) (not .needs_opencode) -}}
 {{- $work := ne .work_username "" -}}
+{{- $needsNeovim := .develop -}}
+{{- if hasKey . "needs_neovim" }}{{- $needsNeovim = .needs_neovim }}{{- end }}
 [settings]
 experimental = true
 install_before = "7d"
@@ -10,7 +12,7 @@ ruby.compile = false
 opencode = "latest"
 {{- end }}
 starship = "latest"
-{{- if .needs_neovim }}
+{{- if $needsNeovim }}
 neovim = "latest"
 {{- end }}
 {{- if not $host }}

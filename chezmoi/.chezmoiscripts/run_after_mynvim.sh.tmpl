@@ -1,4 +1,6 @@
-{{- if .needs_neovim }}
+{{- $needsNeovim := .develop -}}
+{{- if hasKey . "needs_neovim" }}{{- $needsNeovim = .needs_neovim }}{{- end }}
+{{- if $needsNeovim -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
