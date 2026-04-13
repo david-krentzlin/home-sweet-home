@@ -1,5 +1,5 @@
 {{- $host := not .develop -}}
-{{- $work := ne .work_username "" -}}
+{{- $darwin := eq .chezmoi.os "darwin" -}}
 {{- $needsNeovim := .develop -}}
 {{- if hasKey . "needs_neovim" }}{{- $needsNeovim = .needs_neovim }}{{- end }}
 
@@ -22,10 +22,9 @@
 .yarnrc.yml
 {{- end }}
 
-{{- if not $work }}
+{{- if not $darwin }}
 .config/zsh/rc.d/05_homebrew
 .config/zsh/rc.d/10_java
-.config/zsh/rc.d/20_jfrog
 {{- end }}
 
 {{- if not .needs_opencode }}

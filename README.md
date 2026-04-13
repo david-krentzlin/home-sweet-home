@@ -57,7 +57,7 @@ Open the VM as `dev` when you need a shell.
 
 Use `,dev` instead of raw `limactl shell` commands.
 
-Keep repos under `/workspaces` in the VM.
+Keep repos under `~/code` in the VM.
 
 `chezmoi` can read this repo directly from GitHub because the repo root now contains `.chezmoiroot` pointing at `chezmoi/`.
 
@@ -101,7 +101,7 @@ That delivers the auth callback to the OpenCode process running inside the VM.
 - Show the VM IP with `,vm-ip`
 - Open a VM-hosted service in the browser with `,vm-open 9000`
 - Create the VM from the host with `,create-vm`
-- Keep shared repos under `/workspaces` on the vm
+- Keep repos under `~/code` on the VM
 - Pull and apply host changes with `,chezmoi-update`
 - Pull and apply VM changes with `,chezmoi-update` as `dev`, including `mynvim` when enabled
 - Run `,setup-scala` in the VM after syncing JFrog credentials when you need Scala/Metals tooling

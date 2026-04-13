@@ -33,7 +33,7 @@ probes:
     script: |
       #!/bin/bash
       set -eux -o pipefail
-      test -d /workspaces
+      test -d /home/dev/code
       command -v chezmoi
       command -v mise
 

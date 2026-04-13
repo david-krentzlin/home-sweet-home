@@ -5,7 +5,7 @@ dnf install -y git curl sudo ca-certificates chezmoi zsh zsh-autosuggestions ope
 
 usermod -s /bin/zsh dev
 
-install -d -m 755 -o dev -g dev /workspaces
+install -d -m 755 -o dev -g dev /home/dev/code
 
 if ! command -v mise >/dev/null 2>&1; then
 	if dnf copr enable -y jdxcode/mise; then
