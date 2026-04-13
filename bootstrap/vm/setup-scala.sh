@@ -40,6 +40,26 @@ EOF
 	chmod 755 "$wrapper_path"
 }
 
+ensure_coursier() {
+	if command -v cs >/dev/null 2>&1 && cs --help >/dev/null 2>&1; then
+		return 0
+	fi
+
+	if mise exec -- sh -lc 'command -v cs >/dev/null 2>&1 && cs --help >/dev/null 2>&1'; then
+		return 0
+	fi
+
+	echo "Installing coursier manually via coursier.jar"
+	install_coursier_wrapper
+
+	if command -v cs >/dev/null 2>&1 && cs --help >/dev/null 2>&1; then
+		return 0
+	fi
+
+	echo "Error: coursier (cs) is not usable after wrapper installation." >&2
+	return 1
+}
+
 if ! command -v mise >/dev/null 2>&1; then
 	echo "Error: mise is required but was not found on PATH. Run ,chezmoi-init first." >&2
 	exit 1
@@ -69,16 +89,12 @@ echo "Ensuring current mise config is trusted and installed"
 mise trust "$HOME/.config/mise/config.toml"
 mise install
 
-if ! mise exec -- sh -lc 'command -v cs >/dev/null 2>&1'; then
+if ! ensure_coursier; then
 	echo "coursier (cs) is not available from the current mise config; installing Scala prerequisites explicitly"
 	mise install java "github:scalameta/scalafmt"
-	if ! mise exec -- sh -lc 'command -v cs >/dev/null 2>&1'; then
-		echo "Installing coursier manually via coursier.jar"
-		install_coursier_wrapper
-	fi
 fi
 
-if ! command -v cs >/dev/null 2>&1; then
+if ! ensure_coursier; then
 	echo "Error: coursier (cs) is still not available after explicit mise install." >&2
 	exit 1
 fi
