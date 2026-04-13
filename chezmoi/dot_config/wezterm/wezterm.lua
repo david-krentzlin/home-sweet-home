@@ -72,7 +72,7 @@ local function command_or_shell(command, fallback_command, label)
   }
 end
 
-local function split_into_dev()
+local function split_into_vm(command_name)
   return act.SplitPane {
     direction = "Right",
     size = { Percent = 50 },
@@ -80,7 +80,12 @@ local function split_into_dev()
       args = {
         "zsh",
         "-lic",
-        "if command -v ,dev >/dev/null 2>&1; then exec ,dev; else echo ',dev not found on PATH'; exec zsh -l; fi",
+        string.format(
+          "if command -v %s >/dev/null 2>&1; then exec %s; else echo '%s not found on PATH'; exec zsh -l; fi",
+          command_name,
+          command_name,
+          command_name
+        ),
       },
     },
   }
@@ -385,7 +390,7 @@ config.keys = {
   { key = "J", mods = "ALT|SHIFT",    action = act.AdjustPaneSize { "Down", 5 } },
   { key = "K", mods = "ALT|SHIFT",    action = act.AdjustPaneSize { "Up", 5 } },
   { key = "L", mods = "ALT|SHIFT",    action = act.AdjustPaneSize { "Right", 5 } },
-  { key = "d", mods = "LEADER",       action = split_into_dev() },
+  { key = "d", mods = "LEADER",       action = split_into_vm(",dev") },
   {
     key = "n",
     mods = "LEADER",
@@ -413,47 +418,7 @@ config.keys = {
   {
     key = "a",
     mods = "LEADER",
-    action = act.SplitPane {
-      direction = "Right",
-      size = { Percent = 50 },
-      command = {
-        args = {
-          "zsh",
-          "-lic",
-          "root=$(git rev-parse --show-toplevel 2>/dev/null || pwd); cd \"$root\"; if command -v opencode >/dev/null 2>&1; then exec opencode; else echo 'opencode not found on PATH'; exec zsh -l; fi",
-        },
-      },
-    },
-  },
-  {
-    key = "e",
-    mods = "LEADER",
-    action = act.SplitPane {
-      direction = "Right",
-      size = { Percent = 60 },
-      command = {
-        args = {
-          "zsh",
-          "-lic",
-          "root=$(git rev-parse --show-toplevel 2>/dev/null || pwd); cd \"$root\"; if command -v yazi >/dev/null 2>&1; then exec yazi; else echo 'yazi not found on PATH'; exec zsh -l; fi",
-        },
-      },
-    },
-  },
-  {
-    key = "g",
-    mods = "LEADER",
-    action = act.SplitPane {
-      direction = "Right",
-      size = { Percent = 40 },
-      command = {
-        args = {
-          "zsh",
-          "-lic",
-          "root=$(git rev-parse --show-toplevel 2>/dev/null || pwd); cd \"$root\"; printf '\033]2;__LAZYGIT__\033\\'; if command -v lazygit >/dev/null 2>&1; then exec lazygit -ucf ~/.config/lazygit/config.yml; else echo 'lazygit not found on PATH'; exec zsh -l; fi",
-        },
-      },
-    },
+    action = split_into_vm(",agent"),
   },
   {
     key = "t",
