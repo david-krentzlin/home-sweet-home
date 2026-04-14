@@ -6,7 +6,7 @@ layout {
     }
 
     pane split_direction="vertical" {
-        pane name="hx" command="hx" focus=true
-        pane name="opencode" command="opencode"
+        pane name="hx" command="hx" size="80%" focus=true
+        pane name="opencode" command="opencode" size="20%"
     }
 }
