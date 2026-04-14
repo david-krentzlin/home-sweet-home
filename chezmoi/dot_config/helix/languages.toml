@@ -1,0 +1,150 @@
+# ~/.config/helix/languages.toml
+
+[language-server.gopls]
+command = "gopls"
+args = ["serve"]
+
+[language-server.gopls.config]
+"formatting.gofumpt" = true
+"ui.diagnostic.staticcheck" = true
+"ui.completion.usePlaceholders" = true
+"ui.semanticTokens" = true
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[language-server.golangci-lint-lsp]
+command = "golangci-lint-langserver"
+
+[language-server.golangci-lint-lsp.config]
+command = ["golangci-lint", "run", "--output.json.path=stdout", "--show-stats=false", "--issues-exit-code=1"]
+
+[language-server.ruby-lsp]
+command = "ruby-lsp"
+
+[language-server.metals]
+command = "metals"
+
+[language-server.metals.config]
+isHttpEnabled = true
+
+[language-server.metals.config.metals]
+inlayHints.typeParameters.enable = true
+inlayHints.hintsInPatternMatch.enable = true
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.yaml-language-server.config.yaml]
+validation = true
+schemaStore.enable = true
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://json.schemastore.org/github-action.json" = ".github/actions/**/action.{yml,yaml}"
+"https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json" = "docker-compose*.{yml,yaml}"
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-json-language-server.config.json]
+validation.enable = true
+
+[language-server.vscode-json-language-server.config.json.schemas]
+"https://json.schemastore.org/package.json" = "package.json"
+"https://json.schemastore.org/tsconfig.json" = "tsconfig*.json"
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.emmet-ls]
+command = "emmet-ls"
+args = ["--stdio"]
+
+[language-server.helmls]
+command = "helm_ls"
+args = ["serve"]
+
+[[language]]
+name = "go"
+auto-format = true
+language-servers = ["gopls", "golangci-lint-lsp"]
+formatter = { command = "gofumpt" }
+
+[[language]]
+name = "gomod"
+auto-format = true
+language-servers = ["gopls"]
+
+[[language]]
+name = "gowork"
+auto-format = true
+language-servers = ["gopls"]
+
+[[language]]
+name = "gotmpl"
+auto-format = true
+language-servers = ["gopls"]
+
+[[language]]
+name = "helm"
+scope = "source.helm"
+roots = ["Chart.yaml", "Chart.lock"]
+file-types = [
+  { glob = "templates/*.yaml" },
+  { glob = "templates/*.yml" },
+  { glob = "templates/*.tpl" },
+  { glob = "templates/**/*.yaml" },
+  { glob = "templates/**/*.yml" },
+  { glob = "templates/**/*.tpl" },
+]
+language-servers = ["helmls"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "ruby"
+auto-format = true
+language-servers = ["ruby-lsp"]
+formatter = { command = "rubocop", args = ["--stdin", "-", "--autocorrect", "--stderr", "--format", "quiet"] }
+
+[[language]]
+name = "scala"
+auto-format = true
+language-servers = ["metals"]
+
+[[language]]
+name = "yaml"
+auto-format = true
+language-servers = ["yaml-language-server"]
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "json"
+auto-format = true
+language-servers = ["vscode-json-language-server"]
+formatter = { command = "prettier", args = ["--parser", "json"] }
+
+[[language]]
+name = "html"
+auto-format = true
+language-servers = ["vscode-html-language-server", "emmet-ls"]
+formatter = { command = "prettier", args = ["--parser", "html"] }
+
+[[language]]
+name = "erb"
+scope = "source.erb"
+injection-regex = "erb"
+file-types = ["erb", { glob = "*.html.erb" }, { glob = "*.erb" }]
+language-servers = ["ruby-lsp"]
+indent = { tab-width = 2, unit = "  " }
+block-comment-tokens = { start = "<%#", end = "%>" }

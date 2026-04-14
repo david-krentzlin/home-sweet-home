@@ -1,0 +1,23 @@
+# ~/.config/yazi/yazi.toml
+
+[manager]
+ratio = [1, 3, 4]
+sort_by = "natural"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_hidden = true
+show_symlink = true
+linemode = "size"
+
+[opener]
+edit = [
+  { run = 'hx "$@"', block = true, for = "unix" },
+]
+
+[preview]
+max_width = 600
+max_height = 900
+
+[plugin]
+prepend_previewers = []

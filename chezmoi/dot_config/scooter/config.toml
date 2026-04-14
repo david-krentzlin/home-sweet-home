@@ -1,0 +1,13 @@
+# ~/.config/scooter/config.toml
+
+[editor_open]
+command = "hx %file:%line"
+exit_after = true
+
+syntax_highlighting = true
+syntax_highlighting_theme = "Catppuccin Mocha"
+true_color = true
+line_wrap = false
+
+[search]
+disable_prepopulated_fields = false

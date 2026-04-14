@@ -1,0 +1,85 @@
+// ~/.config/zellij/config.kdl
+
+theme "catppuccin-mocha"
+
+simplified_ui true
+pane_frames false
+default_mode "locked"
+default_layout "default"
+copy_on_select true
+scrollback_editor "hx"
+mouse_mode true
+session_serialization true
+
+keybinds {
+    locked clear-defaults=true {
+        bind "Alt a" { SwitchToMode "Normal"; }
+    }
+
+    normal clear-defaults=true {
+        bind "Alt a" { SwitchToMode "Locked"; }
+        bind "Alt n" { NewPane; SwitchToMode "Locked"; }
+        bind "Alt -" { NewPane "Down"; SwitchToMode "Locked"; }
+        bind "Alt \\" { NewPane "Right"; SwitchToMode "Locked"; }
+        bind "Alt x" { CloseFocus; SwitchToMode "Locked"; }
+        bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
+        bind "Alt z" { TogglePaneEmbedOrFloating; SwitchToMode "Locked"; }
+        bind "Alt h" { MoveFocus "Left"; SwitchToMode "Locked"; }
+        bind "Alt j" { MoveFocus "Down"; SwitchToMode "Locked"; }
+        bind "Alt k" { MoveFocus "Up"; SwitchToMode "Locked"; }
+        bind "Alt l" { MoveFocus "Right"; SwitchToMode "Locked"; }
+        bind "Alt t" { NewTab; SwitchToMode "Locked"; }
+        bind "Alt w" { CloseTab; SwitchToMode "Locked"; }
+        bind "Alt 1" { GoToTab 1; SwitchToMode "Locked"; }
+        bind "Alt 2" { GoToTab 2; SwitchToMode "Locked"; }
+        bind "Alt 3" { GoToTab 3; SwitchToMode "Locked"; }
+        bind "Alt 4" { GoToTab 4; SwitchToMode "Locked"; }
+        bind "Alt 5" { GoToTab 5; SwitchToMode "Locked"; }
+        bind "Alt [" { GoToPreviousTab; SwitchToMode "Locked"; }
+        bind "Alt ]" { GoToNextTab; SwitchToMode "Locked"; }
+        bind "Alt r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+        bind "Alt e" { SwitchToMode "Resize"; }
+        bind "Alt s" { SwitchToMode "Scroll"; }
+        bind "Alt d" { Detach; }
+        bind "Alt q" { Quit; }
+    }
+
+    resize clear-defaults=true {
+        bind "Esc" "Alt a" { SwitchToMode "Locked"; }
+        bind "h" "Left"  { Resize "Increase Left"; }
+        bind "j" "Down"  { Resize "Increase Down"; }
+        bind "k" "Up"    { Resize "Increase Up"; }
+        bind "l" "Right" { Resize "Increase Right"; }
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+        bind "=" "+" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
+    }
+
+    scroll clear-defaults=true {
+        bind "Esc" "Alt a" { SwitchToMode "Locked"; }
+        bind "j" "Down" { ScrollDown; }
+        bind "k" "Up" { ScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+        bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+
+    entersearch clear-defaults=true {
+        bind "Esc" { SwitchToMode "Locked"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+
+    search clear-defaults=true {
+        bind "Esc" "Alt a" { SwitchToMode "Locked"; }
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+    }
+
+    renametab clear-defaults=true {
+        bind "Esc" { UndoRenameTab; SwitchToMode "Locked"; }
+        bind "Enter" { SwitchToMode "Locked"; }
+    }
+}

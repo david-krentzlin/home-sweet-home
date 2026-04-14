@@ -1,0 +1,23 @@
+# ~/.config/helix/themes/catppuccin_mocha_black.toml
+
+inherits = "catppuccin_mocha"
+
+"ui.background" = { bg = "#000000" }
+"ui.statusline" = { fg = "#cdd6f4", bg = "#0a0a0a" }
+"ui.statusline.inactive" = { fg = "#6c7086", bg = "#050505" }
+"ui.statusline.normal" = { fg = "#000000", bg = "#89b4fa", modifiers = ["bold"] }
+"ui.statusline.insert" = { fg = "#000000", bg = "#a6e3a1", modifiers = ["bold"] }
+"ui.statusline.select" = { fg = "#000000", bg = "#cba6f7", modifiers = ["bold"] }
+"ui.popup" = { bg = "#0a0a0a" }
+"ui.window" = { fg = "#313244" }
+"ui.menu" = { fg = "#cdd6f4", bg = "#0a0a0a" }
+"ui.menu.selected" = { fg = "#000000", bg = "#89b4fa" }
+"ui.menu.scroll" = { fg = "#585b70", bg = "#0a0a0a" }
+"ui.bufferline" = { fg = "#6c7086", bg = "#050505" }
+"ui.bufferline.active" = { fg = "#cdd6f4", bg = "#0a0a0a", modifiers = ["bold"] }
+"ui.virtual.indent-guide" = { fg = "#1e1e2e" }
+"ui.virtual.ruler" = { bg = "#0a0a0a" }
+"ui.cursorline.primary" = { bg = "#0f0f0f" }
+"ui.gutter" = { bg = "#000000" }
+"ui.linenr" = { fg = "#45475a", bg = "#000000" }
+"ui.linenr.selected" = { fg = "#cdd6f4", bg = "#000000", modifiers = ["bold"] }

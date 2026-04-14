@@ -1,0 +1,69 @@
+# ~/.config/helix/config.toml
+
+theme = "catppuccin_mocha_black"
+
+[editor]
+true-color = true
+color-modes = true
+bufferline = "multiple"
+cursorline = true
+line-number = "relative"
+idle-timeout = 250
+completion-timeout = 50
+shell = ["bash", "-c"]
+scrolloff = 5
+rulers = [100]
+gutters = ["diagnostics", "spacer", "line-numbers", "spacer", "diff"]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "register", "position", "file-encoding", "file-line-ending", "file-type", "version-control"]
+separator = "│"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.indent-guides]
+render = true
+character = "│"
+skip-levels = 1
+
+[editor.soft-wrap]
+enable = true
+
+[keys.normal]
+C-g = [":write-all", ":insert-output lazygit >/dev/tty", ":redraw", ":reload-all"]
+C-y = [
+  ":sh rm -f /tmp/hx-yazi-chooser",
+  ":insert-output yazi \"%{buffer_name}\" --chooser-file=/tmp/hx-yazi-chooser >/dev/tty",
+  ":redraw",
+  ":open %sh{cat /tmp/hx-yazi-chooser 2>/dev/null || echo ''}",
+]
+C-r = [":write-all", ":insert-output scooter --no-stdin >/dev/tty", ":redraw", ":reload-all"]
+"space".g.b = ":echo %sh{git blame -L %{cursor_line},+1 -- %{buffer_name} 2>/dev/null || echo 'not in a git repo'}"
+"space".g.B = [":new", ":insert-output git blame %{buffer_name}"]
+"space".g.d = [":new", ":insert-output git diff %{buffer_name}"]
+"space".g.l = [":new", ":insert-output git log --oneline -30 -- %{buffer_name}"]
+"space".g.s = [":new", ":insert-output git status --short"]
+C-s = [":write"]
+"space".b.n = ":buffer-next"
+"space".b.p = ":buffer-previous"
+"space".b.d = ":buffer-close"
+
+[keys.normal.space.w]
+s = ":hsplit"
+v = ":vsplit"
+q = ":quit"
+
+[keys.insert]
+C-s = [":write"]

@@ -1,0 +1,45 @@
+gui:
+  nerdFontsVersion: "3"
+  showBottomLine: false
+  showPanelJumps: false
+  border: rounded
+  theme:
+    activeBorderColor:
+      - "#89b4fa"
+      - bold
+    inactiveBorderColor:
+      - "#585b70"
+    searchingActiveBorderColor:
+      - "#f9e2af"
+      - bold
+    optionsTextColor:
+      - "#89b4fa"
+    selectedLineBgColor:
+      - "#313244"
+    cherryPickedCommitFgColor:
+      - "#89b4fa"
+    cherryPickedCommitBgColor:
+      - "#45475a"
+    markedBaseCommitFgColor:
+      - "#89b4fa"
+    markedBaseCommitBgColor:
+      - "#f9e2af"
+    unstagedChangesColor:
+      - "#f38ba8"
+    defaultFgColor:
+      - "#cdd6f4"
+
+git:
+  paging:
+    colorArg: always
+    pager: delta --dark --paging=never
+  autoFetch: true
+  branchLogCmd: "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --"
+
+os:
+  editPreset: "helix"
+
+keybinding:
+  universal:
+    quit: "q"
+    return: "<escape>"

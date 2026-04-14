@@ -41,6 +41,8 @@ chezmoi init --apply david-krentzlin/home-sweet-home
 mise install
 ```
 
+This also installs the terminal IDE support managed here for Helix, Zellij, Lazygit, Yazi, and related editor tooling.
+
 When `chezmoi` prompts as `dev`, answer:
 
 - `Will you develop on this machine?` -> `yes`
@@ -196,3 +198,11 @@ This installs or updates the Scala toolchain expected by the VM setup:
 - install `sbt` and `metals` via `cs`
 
 `COURSIER_CREDENTIALS` and `SBT_CREDENTIALS` are picked up from the JFrog files synced into the VM.
+
+## Terminal IDE
+
+`chezmoi` now manages the Helix, Zellij, Lazygit, Yazi, and Scooter config from this repo directly.
+
+On development machines, `mise install` also pulls the editor-side tools managed here, including `lazygit`, `zellij`, `delta`, `golangci-lint`, `prettier`, and `emmet-ls`.
+
+Theme assets for Yazi and Scooter are managed directly in this repo.
