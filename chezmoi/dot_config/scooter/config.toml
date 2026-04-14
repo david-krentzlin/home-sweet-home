@@ -2,12 +2,15 @@
 
 [editor_open]
 command = "hx %file:%line"
-exit_after = true
+exit = true
 
+[preview]
 syntax_highlighting = true
 syntax_highlighting_theme = "Catppuccin Mocha"
+
+[style]
 true_color = true
-line_wrap = false
+wrap_text = false
 
 [search]
 disable_prepopulated_fields = false
