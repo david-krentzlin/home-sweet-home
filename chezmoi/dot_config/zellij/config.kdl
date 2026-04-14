@@ -25,6 +25,8 @@ keybinds {
             }
             SwitchToMode "Locked"
         }
+        bind "Alt x" { CloseFocus; SwitchToMode "Locked"; }
+        bind "Alt q" { CloseTab; SwitchToMode "Locked"; }
         bind "Alt n" { NewPane; SwitchToMode "Locked"; }
         bind "Alt -" { NewPane "Down"; SwitchToMode "Locked"; }
         bind "Alt \\" { NewPane "Right"; SwitchToMode "Locked"; }
@@ -46,6 +48,8 @@ keybinds {
 
     locked {
         bind "Alt a" { SwitchToMode "Normal"; }
+        bind "Alt x" { CloseFocus; }
+        bind "Alt q" { CloseTab; }
     }
 
     shared_except "locked" {
