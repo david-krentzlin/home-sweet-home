@@ -120,6 +120,8 @@ auto-format = false
 
 [[language]]
 name = "text"
+scope = "text.plain"
+file-types = ["txt"]
 text-width = 80
 rulers = [80]
 soft-wrap = { enable = true, wrap-at-text-width = true }
