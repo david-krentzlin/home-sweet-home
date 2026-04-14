@@ -44,6 +44,7 @@ fi
 (
 	cd "$helix_source_dir"
 	cargo install --path helix-term --locked --root "$HOME/.local"
+	rm -rf target
 )
 
 if [[ -L "$helix_runtime_link" || ! -e "$helix_runtime_link" ]]; then
@@ -51,3 +52,11 @@ if [[ -L "$helix_runtime_link" || ! -e "$helix_runtime_link" ]]; then
 else
 	echo "Warning: leaving existing Helix runtime at $helix_runtime_link in place" >&2
 fi
+
+hx_bin="$HOME/.local/bin/hx"
+if [[ ! -x "$hx_bin" ]]; then
+	hx_bin="$(command -v hx)"
+fi
+
+"$hx_bin" --grammar fetch
+"$hx_bin" --grammar build

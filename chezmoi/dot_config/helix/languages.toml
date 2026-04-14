@@ -21,6 +21,7 @@ yaml = { keyOrdering = false }
 [[language]]
 name = "scala"
 language-servers = ["metals"]
+formatter = { command = "scalafmt", args = ["--stdin"] }
 auto-format = true
 
 [[language]]
@@ -32,6 +33,7 @@ auto-format = true
 [[language]]
 name = "go"
 language-servers = ["gopls"]
+formatter = { command = "gofumpt" }
 auto-format = true
 
 [[language]]
