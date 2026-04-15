@@ -1,23 +1,32 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ $# -ne 2 ]]; then
-	echo "Usage: ,hx-yazi <path> <chooser-file>" >&2
+if [[ $# -ne 3 ]]; then
+	echo "Usage: ,hx-yazi <path> <base-dir> <chooser-file>" >&2
 	exit 1
 fi
 
 target="$1"
-chooser_file="$2"
+base_dir="$2"
+chooser_file="$3"
+
+if [[ -n "$target" && "$target" != /* ]]; then
+	target="$base_dir/$target"
+fi
+
+if [[ -n "$base_dir" && "$base_dir" != /* ]]; then
+	base_dir="$PWD/$base_dir"
+fi
 
 start_dir=""
 if [[ -f "$target" ]]; then
 	start_dir="$(dirname "$target")"
 elif [[ -d "$target" ]]; then
 	start_dir="$target"
-elif git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
+elif git_root="$(git -C "$base_dir" rev-parse --show-toplevel 2>/dev/null)"; then
 	start_dir="$git_root"
 else
-	start_dir="$PWD"
+	start_dir="$base_dir"
 fi
 
 if [[ -n "${ZELLIJ:-}" ]]; then
