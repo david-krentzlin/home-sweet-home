@@ -24,10 +24,6 @@ if ! command -v task >/dev/null 2>&1; then
 	exit 1
 fi
 
-if command -v less >/dev/null 2>&1; then
-	exec sh -c 'task "$@" | less -R' sh "$@"
-fi
-
 task "$@"
 printf '\nPress Enter to close...'
 read -r _
