@@ -8,22 +8,26 @@ default_mode "locked"
 copy_on_select true
 scrollback_editor "hx"
 mouse_mode true
-session_serialization false
 show_startup_tips false
 web_server false
 web_sharing "off"
-default_layout "default"
-
-plugins {
-   compact-bar location="zellij:compact-bar" {
-     tooltip "F1"
-   }
-}
 
 keybinds {
     unbind "Ctrl g"
 
     normal {
+        // Floating tools
+        bind "Alt F" {
+            Run "zsh" "-l" {
+                cwd "."
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
         bind "Alt G" {
             Run "lazygit" {
                 floating true
@@ -33,7 +37,6 @@ keybinds {
                 height "86%"
                 close_on_exit true
             }
-            SwitchToMode "Locked"
         }
         bind "Alt E" {
             Run "yazi" {
@@ -45,7 +48,6 @@ keybinds {
                 height "86%"
                 close_on_exit true
             }
-            SwitchToMode "Locked"
         }
         bind "Alt R" {
             Run "scooter" {
@@ -56,96 +58,99 @@ keybinds {
                 height "86%"
                 close_on_exit true
             }
-            SwitchToMode "Locked"
         }
-        bind "Alt F" {
-            Run "zsh" "-l" {
-                cwd "."
-                floating true
-                x "7%"
-                y "7%"
-                width "86%"
-                height "86%"
-                close_on_exit true
-            }
-            SwitchToMode "Locked"
-        }
-        bind "Alt Q" { CloseTab; SwitchToMode "Locked"; }
-        bind "Alt H" { MoveFocus "Left"; SwitchToMode "Locked"; }
-        bind "Alt J" { MoveFocus "Down"; SwitchToMode "Locked"; }
-        bind "Alt K" { MoveFocus "Up"; SwitchToMode "Locked"; }
-        bind "Alt L" { MoveFocus "Right"; SwitchToMode "Locked"; }
-        bind "Alt T" { NewTab; SwitchToMode "Locked"; }
-        bind "Alt N" { GoToNextTab; SwitchToMode "Locked"; }
-        bind "Alt P" { GoToPreviousTab; SwitchToMode "Locked"; }
-        bind "Alt V" { TogglePaneEmbedOrFloating; SwitchToMode "Locked"; }
-        bind "Alt Z" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
-        bind "Alt D" { Detach; }
-        bind "Alt 1" { GoToTab 1; SwitchToMode "Locked"; }
-        bind "Alt 2" { GoToTab 2; SwitchToMode "Locked"; }
-        bind "Alt 3" { GoToTab 3; SwitchToMode "Locked"; }
-        bind "Alt 4" { GoToTab 4; SwitchToMode "Locked"; }
-        bind "Alt 5" { GoToTab 5; SwitchToMode "Locked"; }
-        bind "Alt 6" { GoToTab 6; SwitchToMode "Locked"; }
-        bind "Alt 7" { GoToTab 7; SwitchToMode "Locked"; }
-        bind "Alt 8" { GoToTab 8; SwitchToMode "Locked"; }
-        bind "Alt 9" { GoToTab 9; SwitchToMode "Locked"; }
-    }
 
-    locked {
-        bind "Alt a" { SwitchToMode "Normal"; }
-        bind "Alt G" {
-            Run "lazygit" {
-                floating true
-                x "7%"
-                y "7%"
-                width "86%"
-                height "86%"
-                close_on_exit true
-            }
-        }
-        bind "Alt E" {
-            Run "yazi" {
-                cwd "."
-                floating true
-                x "7%"
-                y "7%"
-                width "86%"
-                height "86%"
-                close_on_exit true
-            }
-        }
-        bind "Alt R" {
-            Run "scooter" {
-                floating true
-                x "7%"
-                y "7%"
-                width "86%"
-                height "86%"
-                close_on_exit true
-            }
-        }
-        bind "Alt F" {
-            Run "zsh" "-l" {
-                cwd "."
-                floating true
-                x "7%"
-                y "7%"
-                width "86%"
-                height "86%"
-                close_on_exit true
-            }
-        }
-        bind "Alt Q" { CloseTab; }
+        // Pane actions
         bind "Alt H" { MoveFocus "Left"; }
         bind "Alt J" { MoveFocus "Down"; }
         bind "Alt K" { MoveFocus "Up"; }
         bind "Alt L" { MoveFocus "Right"; }
+        bind "Alt V" { NewPane "Right"; }
+        bind "Alt O" { TogglePaneEmbedOrFloating; }
+        bind "Alt Z" { ToggleFocusFullscreen; }
+
+        // Tab actions
         bind "Alt T" { NewTab; }
+        bind "Alt M" { SwitchToMode "RenameTab"; }
         bind "Alt N" { GoToNextTab; }
         bind "Alt P" { GoToPreviousTab; }
-        bind "Alt V" { TogglePaneEmbedOrFloating; }
+        bind "Alt Q" { CloseTab; }
+        bind "Alt D" { Detach; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+    }
+
+    locked {
+        bind "Alt a" { SwitchToMode "Normal"; }
+
+        // Floating tools
+        bind "Alt F" {
+            Run "zsh" "-l" {
+                cwd "."
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
+        bind "Alt G" {
+            Run "lazygit" {
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
+        bind "Alt E" {
+            Run "yazi" {
+                cwd "."
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
+        bind "Alt R" {
+            Run "scooter" {
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
+
+        // Pane actions
+        bind "Alt H" { MoveFocus "Left"; }
+        bind "Alt J" { MoveFocus "Down"; }
+        bind "Alt K" { MoveFocus "Up"; }
+        bind "Alt L" { MoveFocus "Right"; }
+        bind "Alt V" { NewPane "Right"; }
+        bind "Alt O" { TogglePaneEmbedOrFloating; }
         bind "Alt Z" { ToggleFocusFullscreen; }
+
+        // Tab actions
+        bind "Alt T" { NewTab; }
+        bind "Alt M" { SwitchToMode "RenameTab"; }
+        bind "Alt N" { GoToNextTab; }
+        bind "Alt P" { GoToPreviousTab; }
+        bind "Alt Q" { CloseTab; }
+
+        // Session actions
         bind "Alt D" { Detach; }
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }

@@ -75,6 +75,7 @@ ZELLIJ
   Locked-mode quick actions:
     Alt-Shift-h/j/k/l move focus
     Alt-Shift-t       new tab
+    Alt-Shift-m       rename current tab
     Alt-Shift-p       previous tab
     Alt-Shift-n       next tab
     Alt-1..9          go to tab 1..9
@@ -82,7 +83,8 @@ ZELLIJ
     Alt-Shift-g       floating lazygit
     Alt-Shift-r       floating scooter
     Alt-Shift-e       floating yazi in current directory
-    Alt-Shift-v       toggle focused pane floating/embedded
+    Alt-Shift-v       split pane right
+    Alt-Shift-o       toggle focused pane floating/embedded
     Alt-Shift-z       zoom/unzoom focused pane
     Alt-Shift-q       close tab and panes
     Alt-Shift-d       detach session
