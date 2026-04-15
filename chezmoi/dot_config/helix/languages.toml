@@ -99,8 +99,8 @@ auto-format = true
 
 [[language]]
 name = "markdown"
-text-width = 80
-rulers = [80]
+text-width = 150
+rulers = [150]
 soft-wrap = { enable = true, wrap-at-text-width = true }
 formatter = { command = "sh", args = ["-c", "dprint fmt --stdin %{buffer_name} --config $HOME/.config/helix/dprint.json"] }
 language-servers = [
