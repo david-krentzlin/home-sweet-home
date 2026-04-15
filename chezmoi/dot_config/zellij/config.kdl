@@ -61,6 +61,16 @@ keybinds {
                 close_on_exit true
             }
         }
+        bind "Alt W" {
+            Run "taskwarrior-tui" {
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
         bind "Alt ?" {
             Run ",cheatsheet" {
                 floating true
@@ -137,6 +147,16 @@ keybinds {
         }
         bind "Alt R" {
             Run "scooter" {
+                floating true
+                x "7%"
+                y "7%"
+                width "86%"
+                height "86%"
+                close_on_exit true
+            }
+        }
+        bind "Alt W" {
+            Run "taskwarrior-tui" {
                 floating true
                 x "7%"
                 y "7%"
