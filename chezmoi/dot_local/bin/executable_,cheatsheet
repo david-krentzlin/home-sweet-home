@@ -83,6 +83,7 @@ ZELLIJ
     Alt-Shift-g       floating lazygit
     Alt-Shift-r       floating scooter
     Alt-Shift-e       floating yazi in current directory
+    Alt-Shift-?       floating cheatsheet
     Alt-Shift-v       split pane right
     Alt-Shift-o       toggle focused pane floating/embedded
     Alt-Shift-z       zoom/unzoom focused pane
