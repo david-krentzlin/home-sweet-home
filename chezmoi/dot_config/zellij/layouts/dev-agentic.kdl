@@ -6,7 +6,11 @@ layout {
     }
 
     pane split_direction="vertical" {
-        pane name="hx" command="hx" size="70%" focus=true
-        pane name="opencode" command="opencode" size="30%"
+        pane name="hx" command="zsh" size="70%" focus=true {
+            args "-lc" "exec hx"
+        }
+        pane name="opencode" command="zsh" size="30%" {
+            args "-lc" "exec opencode"
+        }
     }
 }
