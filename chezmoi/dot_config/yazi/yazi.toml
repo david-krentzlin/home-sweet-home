@@ -20,7 +20,6 @@ max_width = 600
 max_height = 900
 
 [plugin]
-prepend_previewers = []
 
 [[plugin.prepend_previewers]]
 url = "*.md"
