@@ -21,6 +21,7 @@ config.freetype_load_target = "Normal"
 config.freetype_render_target = "HorizontalLcd"
 config.disable_default_key_bindings = true
 config.hide_tab_bar_if_only_one_tab = true
+config.tab_bar_at_bottom = true
 config.use_fancy_tab_bar = false
 config.window_close_confirmation = "NeverPrompt"
 config.window_padding = {
