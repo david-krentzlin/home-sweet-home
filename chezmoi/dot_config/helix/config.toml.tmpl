@@ -75,17 +75,17 @@ C-g = [
   ":redraw",
   ":reload-all",
 ]
+C-m = [
+  ":write-all",
+  ":sh ,md-preview \"%{buffer_name}\" >/dev/tty",
+  ":redraw",
+]
 
 [keys.select]
 "{" = "goto_prev_paragraph"
 "}" = "goto_next_paragraph"
 
 [keys.normal.space]
-"m" = [
-  ":write-all",
-  ":sh ,md-preview \"%{buffer_name}\" >/dev/tty",
-  ":redraw",
-]
 "*" = [
   "move_prev_word_start",
   "move_next_word_end",
