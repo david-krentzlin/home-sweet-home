@@ -9,19 +9,19 @@ fi
 target="$1"
 chooser_file="$2"
 
-if [[ -z "$target" ]]; then
-	target="$PWD"
-fi
-
-cwd="$PWD"
+start_dir=""
 if [[ -f "$target" ]]; then
-	cwd="$(dirname "$target")"
+	start_dir="$(dirname "$target")"
 elif [[ -d "$target" ]]; then
-	cwd="$target"
+	start_dir="$target"
+elif git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
+	start_dir="$git_root"
+else
+	start_dir="$PWD"
 fi
 
 if [[ -n "${ZELLIJ:-}" ]]; then
-	exec zellij run --floating --close-on-exit --block-until-exit --name yazi --x "7%" --y "7%" --width "86%" --height "86%" --cwd "$cwd" -- yazi "$target" --chooser-file="$chooser_file"
+	exec zellij run --floating --close-on-exit --block-until-exit --name yazi --x "7%" --y "7%" --width "86%" --height "86%" --cwd "$start_dir" -- yazi "$start_dir" --chooser-file="$chooser_file"
 fi
 
-exec yazi "$target" --chooser-file="$chooser_file"
+exec yazi "$start_dir" --chooser-file="$chooser_file"
