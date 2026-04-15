@@ -10,12 +10,14 @@ target="$1"
 base_dir="$2"
 chooser_file="$3"
 
-if [[ -n "$target" && "$target" != /* ]]; then
-	target="$base_dir/$target"
-fi
-
 if [[ -n "$base_dir" && "$base_dir" != /* ]]; then
 	base_dir="$PWD/$base_dir"
+elif [[ -z "$base_dir" ]]; then
+	base_dir="$PWD"
+fi
+
+if [[ -n "$target" && "$target" != /* ]]; then
+	target="$base_dir/$target"
 fi
 
 start_dir=""
