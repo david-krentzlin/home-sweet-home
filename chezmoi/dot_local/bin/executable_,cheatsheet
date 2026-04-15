@@ -151,7 +151,7 @@ HELIX INTEGRATION YOU ALREADY HAVE
   Ctrl-e       open Yazi file chooser
   Ctrl-r       open Scooter
   Ctrl-g       open Lazygit
-  Ctrl-m       preview current file in glow
+  Ctrl-p       preview current file in glow
 
 PROJECT TAB HELPERS
   ,zdev         zoxide picker -> new Zellij tab with dev layout
