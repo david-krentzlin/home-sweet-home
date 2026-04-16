@@ -4,20 +4,12 @@
 {{- $hasGui := .has_gui -}}
 {{- $languageScala := .language_scala -}}
 
-{{- if or .develop (not $manageLimaVMsFromThisHost) }}
+{{- if or  (not $manageLimaVMsFromThisHost) }}
 .local/bin/,vm-shell
 .local/bin/,vm-create
 .local/bin/,vm-sync-jfrog
 .local/bin/,vm-ip
 .local/bin/,vm-open
-{{- end }}
-
-{{- if .develop }}
-.config/zsh/rc.d/05_homebrew
-{{- if $darwin }}
-.config/zsh/rc.d/06_zsh_plugins
-{{- end }}
-.config/zsh/rc.d/10_java
 {{- end }}
 
 {{- if not $hasGui }}
@@ -34,7 +26,6 @@
 
 {{- if not $darwin }}
 .config/zsh/rc.d/05_homebrew
-.config/zsh/rc.d/10_java
 Library/Application Support/lazygit/config.yml
 {{- end }}
 
