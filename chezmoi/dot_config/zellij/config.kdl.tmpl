@@ -1,7 +1,5 @@
 // ~/.config/zellij/config.kdl
 
-{{- $needsTaskwarrior := .taskwarrior }}
-
 theme "catppuccin-mocha"
 
 simplified_ui true
@@ -18,8 +16,6 @@ keybinds {
     unbind "Ctrl g"
 
     normal {
-        bind "Alt l" { SwitchToMode "Locked"; }
-
         // Floating tools
         bind "Alt F" {
             Run "zsh" "-l" {
@@ -42,7 +38,7 @@ keybinds {
             }
         }
         bind "Alt E" {
-            Run "zsh" "-lc" "exec yazi \"$PWD\"" {
+            Run "bash" "-lc" "exec yazi \"$PWD\"" {
                 floating true
                 x "7%"
                 y "7%"
@@ -61,9 +57,9 @@ keybinds {
                 close_on_exit true
             }
         }
-{{- if $needsTaskwarrior }}
+{{- if .taskwarrior }}
         bind "Alt W" {
-            Run {{ joinPath .chezmoi.homeDir ".local" "bin" ",task-popup" | quote }} {
+            Run {{ joinPath .chezmoi.homeDir ".local" "bin" "zellij-task-popup" | quote }} {
                 cwd "."
                 floating true
                 x "7%"
@@ -87,21 +83,20 @@ keybinds {
         }
 
         // Pane actions
-        bind "Alt H" { MoveFocus "Left"; }
-        bind "Alt J" { MoveFocus "Down"; }
-        bind "Alt K" { MoveFocus "Up"; }
-        bind "Alt L" { MoveFocus "Right"; }
-        bind "Alt V" { NewPane "Right"; }
-        bind "Alt O" { TogglePaneEmbedOrFloating; }
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt v" { NewPane "Right"; }
         bind "Alt Z" { ToggleFocusFullscreen; }
 
         // Tab actions
-        bind "Alt T" { NewTab; }
-        bind "Alt M" { SwitchToMode "RenameTab"; }
-        bind "Alt N" { GoToNextTab; }
-        bind "Alt P" { GoToPreviousTab; }
-        bind "Alt Q" { CloseTab; }
-        bind "Alt D" { Detach; }
+        bind "Alt t" { NewTab; }
+        bind "Alt m" { SwitchToMode "RenameTab"; }
+        bind "Alt n" { GoToNextTab; }
+        bind "Alt p" { GoToPreviousTab; }
+        bind "Alt q" { CloseTab; }
+        bind "Alt d" { Detach; }
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }
         bind "Alt 3" { GoToTab 3; }
@@ -157,9 +152,9 @@ keybinds {
                 close_on_exit true
             }
         }
-{{- if $needsTaskwarrior }}
+{{- if .taskwarrior }}
         bind "Alt W" {
-            Run {{ joinPath .chezmoi.homeDir ".local" "bin" ",task-popup" | quote }} {
+            Run {{ joinPath .chezmoi.homeDir ".local" "bin" "zellij-task-popup" | quote }} {
                 cwd "."
                 floating true
                 x "7%"

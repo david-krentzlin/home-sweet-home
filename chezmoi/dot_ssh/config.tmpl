@@ -1,11 +1,4 @@
-{{- if .develop }}
 Host github.com
 	User git
-	IdentityFile ~/.ssh/id_ed25519
+	IdentityFile ~/.ssh/{{ .git_ssh_key_name }}
 	IdentitiesOnly yes
-
-Host source.xing.com
-	User git
-	IdentityFile ~/.ssh/id_ed25519
-	IdentitiesOnly yes
-{{- end }}

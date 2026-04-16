@@ -58,19 +58,19 @@ select = "🅢"
 D = ["ensure_selections_forward", "extend_to_line_end", "delete_selection"]
 C-e = [
   ":sh rm -f /tmp/hx-yazi-chooser",
-  ":sh ,hx-yazi \"%{buffer_name}\" \"%sh{pwd}\" /tmp/hx-yazi-chooser >/dev/tty",
+  ":sh hx-yazi \"%{buffer_name}\" \"%sh{pwd}\" /tmp/hx-yazi-chooser >/dev/tty",
   ":redraw",
   ":open %sh{cat /tmp/hx-yazi-chooser 2>/dev/null || echo ''}",
   ":reload-all",
 ]
 C-r = [
   ":write-all",
-  ":sh ,hx-scooter >/dev/tty",
+  ":sh hx-scooter >/dev/tty",
   ":redraw",
   ":reload-all",
 ]
 C-g = [
-  ":sh ,hx-lazygit >/dev/tty",
+  ":sh hx-lazygit >/dev/tty",
   ":redraw",
   ":reload-all",
 ]
