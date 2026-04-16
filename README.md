@@ -49,7 +49,6 @@ When `chezmoi` prompts as `dev`, answer:
 - `Will you develop on this machine?` -> `yes`
 - `Do you manage Lima VMs from this host` -> `no`
 - `Will you need opencode on this machine?` -> `yes` if you want OpenCode in the VM, otherwise `no`
-- `Should Helix be built from source on this machine?` -> `yes` if you want source-built Helix
 - language toolchain prompts (`Go`, `Ruby`, `Scala`, `Rust`) appear only when `Will you develop on this machine?` is `yes`
 - fill in the same identity values as on the host
 
@@ -213,8 +212,6 @@ On development machines, `mise install` always pulls the generic editor-side too
 
 Language-specific toolchains are installed from the `chezmoi` language prompts (`Go`, `Ruby`, `Scala`, `Rust`) only when selected.
 
-If you opt into source-built Helix in the chezmoi prompts, Helix is built from the official repository on both Linux and macOS after Rust is available, so run `chezmoi apply` once after `mise install` during bootstrap.
-
-You can manually install or update that source build later with `,helix-install`.
+To install or update a source-built Helix from the official repository on Linux or macOS, run `,helix-install` after Rust is available.
 
 Theme assets for Yazi and Scooter are managed directly in this repo.
