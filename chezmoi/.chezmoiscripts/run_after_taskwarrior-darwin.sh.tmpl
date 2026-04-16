@@ -1,4 +1,4 @@
-{{- if and .needs_taskwarrior (eq .chezmoi.os "darwin") -}}
+{{- if and .taskwarrior (eq .chezmoi.os "darwin") -}}
 #!/usr/bin/env bash
 set -euo pipefail
 
