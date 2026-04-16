@@ -1,6 +1,7 @@
 {{- $develop := promptBoolOnce . "develop" "Will you develop on this machine" -}}
 {{- $needsOpencode := promptBoolOnce . "needs_opencode" "Will you need opencode on this machine" -}}
 {{- $needsTaskwarrior := promptBoolOnce . "needs_taskwarrior" "Should Taskwarrior be installed on this machine" -}}
+{{- $hasGui := promptBoolOnce . "has_gui" "Does this machine have a GUI/desktop" -}}
 {{- $manageLimaVmsFromThisHost := promptBoolOnce . "manage_lima_vms_from_this_host" "Do you manage Lima VMs from this host" -}}
 {{- $buildHelixFromSource := false -}}
 {{- $languageGo := false -}}
@@ -19,6 +20,7 @@
 develop = {{ $develop }}
 needs_opencode = {{ $needsOpencode }}
 needs_taskwarrior = {{ $needsTaskwarrior }}
+has_gui = {{ $hasGui }}
 manage_lima_vms_from_this_host = {{ $manageLimaVmsFromThisHost }}
 build_helix_from_source = {{ $buildHelixFromSource }}
 language_go = {{ $languageGo }}

@@ -21,6 +21,7 @@ When `chezmoi` prompts on the host, answer:
 - `Will you develop on this machine?` -> `no`
 - `Do you manage Lima VMs from this host` -> `yes`
 - `Will you need opencode on this machine?` -> `no`
+- `Does this machine have a GUI/desktop` -> `yes`
 - fill in `Git author name`, `Git author email`, `GitHub username`, and `Work username`
 
 #### VM as `dev`
@@ -49,6 +50,7 @@ When `chezmoi` prompts as `dev`, answer:
 - `Will you develop on this machine?` -> `yes`
 - `Do you manage Lima VMs from this host` -> `no`
 - `Will you need opencode on this machine?` -> `yes` if you want OpenCode in the VM, otherwise `no`
+- `Does this machine have a GUI/desktop` -> `no`
 - `Should Helix be built from source on this machine?` -> `yes` if you want Rust preinstalled for `,helix-install` on this machine
 - language toolchain prompts (`Go`, `Ruby`, `Scala`, `Rust`) appear only when `Will you develop on this machine?` is `yes`
 - fill in the same identity values as on the host
