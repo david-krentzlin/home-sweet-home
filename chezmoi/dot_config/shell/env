@@ -1,0 +1,25 @@
+path_prepend_if_missing() {
+	case ":$PATH:" in
+	*":$1:"*)
+		;;
+	*)
+		PATH="$1${PATH:+:$PATH}"
+		;;
+	esac
+}
+
+if [ -n "${GOBIN:-}" ]; then
+	go_bin="$GOBIN"
+else
+	go_bin="${GOPATH:-$HOME/go}/bin"
+fi
+
+path_prepend_if_missing "$go_bin"
+path_prepend_if_missing "$HOME/bin"
+path_prepend_if_missing "$HOME/.local/bin"
+path_prepend_if_missing "$HOME/.local/share/mise/shims"
+
+export PATH
+export COLORTERM=truecolor
+export EDITOR=hx
+export VISUAL=hx

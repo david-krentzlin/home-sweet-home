@@ -1,5 +1,9 @@
 export ZSH_CONFIG_DIR="$HOME/.config/zsh"
 
+if [[ -f "$HOME/.config/shell/env" ]]; then
+	source "$HOME/.config/shell/env"
+fi
+
 if [[ $- != *i* ]]; then
 	return
 fi
