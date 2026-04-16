@@ -18,8 +18,8 @@
 
 [data]
 develop = {{ $develop }}
-needs_opencode = {{ $needsOpencode }}
-needs_taskwarrior = {{ $needsTaskwarrior }}
+opencode = {{ $needsOpencode }}
+taskwarrior = {{ $needsTaskwarrior }}
 has_gui = {{ $hasGui }}
 manage_lima_vms_from_this_host = {{ $manageLimaVmsFromThisHost }}
 build_helix_from_source = {{ $buildHelixFromSource }}
@@ -31,7 +31,6 @@ git_author_name = {{ promptStringOnce . "git_author_name" "Git author name" | qu
 git_email = {{ promptStringOnce . "git_email" "Git author email" | quote }}
 git_ssh_key_name = {{ promptStringOnce . "git_ssh_key_name"  "Name of the ssh key"  | quote }}
 github_username = {{ promptStringOnce . "github_username" "GitHub username" | quote }}
-work_username = {{ $workUsername | quote }}
 
 [warnings]
 configFileTemplateHasChanged = false
