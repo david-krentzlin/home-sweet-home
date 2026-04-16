@@ -1,5 +1,4 @@
-{{- $manageLimaVMsFromThisHost := false -}}
-{{- if hasKey . "manage_lima_vms_from_this_host" }}{{- $manageLimaVMsFromThisHost = .manage_lima_vms_from_this_host }}{{- end }}
+{{- $manageLimaVMsFromThisHost := .manage_lima_vms_from_this_host -}}
 if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/home-sweet-home/jfrog-oidc.env" ]]; then
 	source "${XDG_CONFIG_HOME:-$HOME/.config}/home-sweet-home/jfrog-oidc.env"
 fi

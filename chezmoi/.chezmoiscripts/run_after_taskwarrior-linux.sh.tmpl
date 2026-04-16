@@ -1,6 +1,4 @@
-{{- $needsTaskwarrior := false -}}
-{{- if hasKey . "needs_taskwarrior" }}{{- $needsTaskwarrior = .needs_taskwarrior }}{{- end }}
-{{- if and $needsTaskwarrior (eq .chezmoi.os "linux") -}}
+{{- if and .needs_taskwarrior (eq .chezmoi.os "linux") -}}
 #!/usr/bin/env bash
 set -euo pipefail
 

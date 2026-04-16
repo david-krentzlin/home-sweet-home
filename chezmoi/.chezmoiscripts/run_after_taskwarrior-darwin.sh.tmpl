@@ -1,0 +1,15 @@
+{{- if and .needs_taskwarrior (eq .chezmoi.os "darwin") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+if command -v task >/dev/null 2>&1; then
+	exit 0
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+	echo "Error: Homebrew is required to install Taskwarrior (task)." >&2
+	exit 1
+fi
+
+exec brew install task
+{{- end }}

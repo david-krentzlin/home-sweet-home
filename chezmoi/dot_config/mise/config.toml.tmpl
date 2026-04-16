@@ -1,15 +1,9 @@
-{{- $needsTaskwarrior := false -}}
-{{- if hasKey . "needs_taskwarrior" }}{{- $needsTaskwarrior = .needs_taskwarrior }}{{- end }}
-{{- $buildHelixFromSource := false -}}
-{{- if hasKey . "build_helix_from_source" }}{{- $buildHelixFromSource = .build_helix_from_source }}{{- end }}
-{{- $languageGo := false -}}
-{{- if hasKey . "language_go" }}{{- $languageGo = .language_go }}{{- end }}
-{{- $languageRuby := false -}}
-{{- if hasKey . "language_ruby" }}{{- $languageRuby = .language_ruby }}{{- end }}
-{{- $languageScala := false -}}
-{{- if hasKey . "language_scala" }}{{- $languageScala = .language_scala }}{{- end }}
-{{- $languageRust := false -}}
-{{- if hasKey . "language_rust" }}{{- $languageRust = .language_rust }}{{- end }}
+{{- $needsTaskwarrior := .needs_taskwarrior -}}
+{{- $buildHelixFromSource := .build_helix_from_source -}}
+{{- $languageGo := .language_go -}}
+{{- $languageRuby := .language_ruby -}}
+{{- $languageScala := .language_scala -}}
+{{- $languageRust := .language_rust -}}
 
 [settings]
 experimental = true
@@ -26,9 +20,6 @@ starship = "latest"
 
 {{- $linuxArm := and (eq .chezmoi.os "linux") (or (eq .chezmoi.arch "arm64") (eq .chezmoi.arch "aarch64")) }}
 {{- if $needsTaskwarrior }}
-{{- if ne .chezmoi.os "linux" }}
-taskwarrior = "latest"
-{{- end }}
 {{- if not $linuxArm }}
 "aqua:kdheepak/taskwarrior-tui" = "latest"
 {{- end }}

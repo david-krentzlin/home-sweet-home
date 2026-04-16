@@ -1,7 +1,6 @@
 // ~/.config/zellij/config.kdl
 
-{{- $needsTaskwarrior := false -}}
-{{- if hasKey . "needs_taskwarrior" }}{{- $needsTaskwarrior = .needs_taskwarrior }}{{- end }}
+{{- $needsTaskwarrior := .needs_taskwarrior -}}
 
 theme "catppuccin-mocha"
 

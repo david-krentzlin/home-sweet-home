@@ -1,10 +1,7 @@
 {{- $darwin := eq .chezmoi.os "darwin" -}}
-{{- $needsTaskwarrior := false -}}
-{{- $manageLimaVMsFromThisHost := false -}}
-{{- $hasGui := false -}}
-{{- if hasKey . "needs_taskwarrior" }}{{- $needsTaskwarrior = .needs_taskwarrior }}{{- end }}
-{{- if hasKey . "manage_lima_vms_from_this_host" }}{{- $manageLimaVMsFromThisHost = .manage_lima_vms_from_this_host }}{{- end }}
-{{- if hasKey . "has_gui" }}{{- $hasGui = .has_gui }}{{- end }}
+{{- $needsTaskwarrior := .needs_taskwarrior -}}
+{{- $manageLimaVMsFromThisHost := .manage_lima_vms_from_this_host -}}
+{{- $hasGui := .has_gui -}}
 
 {{- if or .develop (not $manageLimaVMsFromThisHost) }}
 .local/bin/,vm-shell
