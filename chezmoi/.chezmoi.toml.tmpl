@@ -15,7 +15,7 @@
 {{- $languageScala = promptBoolOnce . "language_scala" "Should Scala toolchains be installed on this machine" -}}
 {{- $languageRust = promptBoolOnce . "language_rust" "Should Rust toolchains be installed on this machine" -}}
 {{- end -}}
-{{- $workUsername := promptStringOnce . "work_username" "Work username (leave blank if not applicable)" -}}
+
 [data]
 develop = {{ $develop }}
 needs_opencode = {{ $needsOpencode }}
