@@ -112,13 +112,13 @@ This file captures concrete findings and an execution plan for:
   - `chezmoi/dot_config/starship.toml.tmpl:1`
 - Problem: topology assumptions are implicit and brittle.
 
-### P3 - Possible dead or underused context file
+### P3 - Completed cleanup item
 
-11. `bootstrap-context.toml` is generated but appears under-integrated
+11. Removed underused bootstrap context artifact
 
-- Evidence:
-  - `chezmoi/dot_config/home-sweet-home/bootstrap-context.toml.tmpl:1`
-- Problem: unclear whether this is an active contract or leftover artifact.
+- Change:
+  - removed `chezmoi/dot_config/home-sweet-home/bootstrap-context.toml.tmpl`
+- Outcome: no in-repo consumer depended on this file.
 
 ## Concrete Task List
 
@@ -242,9 +242,8 @@ This file captures concrete findings and an execution plan for:
     - `chezmoi/.chezmoiscripts/run_after_taskwarrior-linux.sh.tmpl`
   - Acceptance: repeated guard patterns are reduced.
 
-- [ ] T6.3 Decide fate of bootstrap context artifact.
-  - File: `chezmoi/dot_config/home-sweet-home/bootstrap-context.toml.tmpl`
-  - Acceptance: either integrated and documented, or removed.
+- [x] T6.3 Remove bootstrap context artifact.
+  - Change: removed `chezmoi/dot_config/home-sweet-home/bootstrap-context.toml.tmpl`.
 
 ## Validation Checklist
 
@@ -264,3 +263,8 @@ This file captures concrete findings and an execution plan for:
 5. Phase 5 (zellij CLI recipe consolidation)
 6. Phase 6 (chezmoi template simplification)
 7. Validation checklist and README finalization
+
+## Backlog Notes
+
+- Reconsider whether `bootstrap/host/Brewfile.work` is still needed as a separate file.
+- Candidate change: move the brew package list into `chezmoi/.chezmoiscripts/run_once_after_host-brew-bundle.sh.tmpl` and keep execution gated to macOS host only.
