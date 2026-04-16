@@ -1,7 +1,4 @@
 {{- $manageLimaVMsFromThisHost := .manage_lima_vms_from_this_host -}}
-if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/home-sweet-home/jfrog-oidc.env" ]]; then
-	source "${XDG_CONFIG_HOME:-$HOME/.config}/home-sweet-home/jfrog-oidc.env"
-fi
 
 if [[ -f "$HOME/.ivy2/.credentials" ]]; then
 	export SBT_CREDENTIALS="$HOME/.ivy2/.credentials"

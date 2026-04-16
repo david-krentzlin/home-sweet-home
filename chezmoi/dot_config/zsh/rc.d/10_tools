@@ -43,12 +43,3 @@ fi
 if command -v fzf >/dev/null 2>&1 && [[ -t 0 && -t 1 ]]; then
 	source <(fzf --zsh)
 fi
-
-for autosuggestions_script in \
-	/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh \
-	/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh; do
-	if [[ -r "$autosuggestions_script" ]]; then
-		source "$autosuggestions_script"
-		break
-	fi
-done

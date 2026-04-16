@@ -6,15 +6,11 @@ if command -v yazi >/dev/null 2>&1; then
 	alias e='yazi'
 fi
 
-if command -v task >/dev/null 2>&1; then
-	alias t='task'
-	alias ta='task add'
-fi
+{{- if .taskwarrior }}
+alias t='task'
+alias ta='task add'
 
 if command -v taskwarrior-tui >/dev/null 2>&1; then
 	alias tt='taskwarrior-tui'
 fi
-
-if command -v tasksh >/dev/null 2>&1; then
-	alias ts='tasksh'
-fi
+{{- end }}
