@@ -2,8 +2,8 @@
 set -euo pipefail
 
 if [[ $# -ne 3 ]]; then
-	echo "Usage: ,hx-yazi <path> <base-dir> <chooser-file>" >&2
-	exit 1
+  echo "Usage: hx-yazi <path> <base-dir> <chooser-file>" >&2
+  exit 1
 fi
 
 target="$1"
@@ -11,28 +11,24 @@ base_dir="$2"
 chooser_file="$3"
 
 if [[ -n "$base_dir" && "$base_dir" != /* ]]; then
-	base_dir="$PWD/$base_dir"
+  base_dir="$PWD/$base_dir"
 elif [[ -z "$base_dir" ]]; then
-	base_dir="$PWD"
+  base_dir="$PWD"
 fi
 
 if [[ -n "$target" && "$target" != /* ]]; then
-	target="$base_dir/$target"
+  target="$base_dir/$target"
 fi
 
 start_dir=""
 if [[ -f "$target" ]]; then
-	start_dir="$(dirname "$target")"
+  start_dir="$(dirname "$target")"
 elif [[ -d "$target" ]]; then
-	start_dir="$target"
+  start_dir="$target"
 elif git_root="$(git -C "$base_dir" rev-parse --show-toplevel 2>/dev/null)"; then
-	start_dir="$git_root"
+  start_dir="$git_root"
 else
-	start_dir="$base_dir"
-fi
-
-if [[ -n "${ZELLIJ:-}" ]]; then
-	exec zellij run --floating --close-on-exit --block-until-exit --name yazi --x "7%" --y "7%" --width "86%" --height "86%" --cwd "$start_dir" -- yazi "$start_dir" --chooser-file="$chooser_file"
+  start_dir="$base_dir"
 fi
 
 exec yazi "$start_dir" --chooser-file="$chooser_file"
