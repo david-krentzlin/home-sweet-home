@@ -160,3 +160,8 @@ On development machines, `mise install` always pulls the generic editor-side too
 Language-specific toolchains are installed from the `chezmoi` language prompts (`Go`, `Ruby`, `Scala`, `Rust`) only when selected.
 To install or update a source-built Helix from the official repository on Linux or macOS, run `,helix-install` after Rust is available.
 Theme assets for Yazi and Scooter are managed directly in this repo.
+
+# Configuration
+
+The file ~/.config/chezmoi/chezmoi.toml contains the chezmoi config and can be tweaked to disable / enable features.
+When chezmoi is initially bootstrapped, it will ask you about those settings.

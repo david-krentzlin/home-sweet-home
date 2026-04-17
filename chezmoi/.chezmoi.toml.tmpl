@@ -1,20 +1,25 @@
-{{- $develop := promptBoolOnce . "develop" "Will you develop on this machine" -}}
-{{- $needsOpencode := promptBoolOnce . "needs_opencode" "Will you need opencode on this machine" -}}
-{{- $needsTaskwarrior := promptBoolOnce . "needs_taskwarrior" "Should Taskwarrior be setup on this machine" -}}
 {{- $hasGui := promptBoolOnce . "has_gui" "Does this machine have a GUI/desktop" -}}
 {{- $manageLimaVmsFromThisHost := promptBoolOnce . "manage_lima_vms_from_this_host" "Do you manage Lima VMs from this host" -}}
+
+{{- $develop := promptBoolOnce . "develop" "Will you develop on this machine" -}}
 {{- $buildHelixFromSource := false -}}
 {{- $languageGo := false -}}
 {{- $languageRuby := false -}}
 {{- $languageScala := false -}}
 {{- $languageRust := false -}}
+{{- $languageElixir := false -}}
+{{- $needsOpencode := false -}}
 {{- if $develop -}}
 {{- $buildHelixFromSource = promptBoolOnce . "build_helix_from_source" "Should Helix be built from source on this machine" -}}
 {{- $languageGo = promptBoolOnce . "language_go" "Should Go toolchains be installed on this machine" -}}
 {{- $languageRuby = promptBoolOnce . "language_ruby" "Should Ruby toolchains be installed on this machine" -}}
 {{- $languageScala = promptBoolOnce . "language_scala" "Should Scala toolchains be installed on this machine" -}}
 {{- $languageRust = promptBoolOnce . "language_rust" "Should Rust toolchains be installed on this machine" -}}
+{{- $languageElixir = promptBoolOnce . "language_rust" "Should Elixir toolchains be installed on this machine" -}}
+{{- $needsOpencode := promptBoolOnce . "needs_opencode" "Will you need opencode on this machine" -}}
 {{- end -}}
+
+{{- $needsTaskwarrior := promptBoolOnce . "needs_taskwarrior" "Should Taskwarrior be setup on this machine" -}}
 
 [data]
 develop = {{ $develop }}
@@ -27,6 +32,7 @@ language_go = {{ $languageGo }}
 language_ruby = {{ $languageRuby }}
 language_scala = {{ $languageScala }}
 language_rust = {{ $languageRust }}
+language_elixir = {{ $languageElixir }}
 git_author_name = {{ promptStringOnce . "git_author_name" "Git author name" | quote }}
 git_email = {{ promptStringOnce . "git_email" "Git author email" | quote }}
 git_ssh_key_name = {{ promptStringOnce . "git_ssh_key_name"  "Name of the ssh key"  | quote }}

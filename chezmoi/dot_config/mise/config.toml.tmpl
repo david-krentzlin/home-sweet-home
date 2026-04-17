@@ -1,45 +1,47 @@
-{{- $needsTaskwarrior := .taskwarrior -}}
-{{- $buildHelixFromSource := .build_helix_from_source -}}
-{{- $languageGo := .language_go -}}
-{{- $languageRuby := .language_ruby -}}
-{{- $languageScala := .language_scala -}}
-{{- $languageRust := .language_rust -}}
 
 [settings]
 experimental = true
 install_before = "7d"
+{{- if .language_ruby }}
 ruby.compile = false
-
-[tools]
-
-{{- if .opencode }}
-opencode = "1.4.6"
 {{- end }}
 
+[tools]
+chezmoi = "latest"
 starship = "latest"
+bat = "latest"
+zoxide = "latest"
+fzf = "latest"
+ripgrep = "latest"
+eza = "latest"
+"github:zellij-org/zellij" = "0.44.1"
+"github:dprint/dprint" = "latest"
+"github:charmbracelet/glow" = "latest"
+"github:sxyazi/yazi" = "latest"
+"github:jesseduffield/lazygit" = "latest"
+"github:thomasschafer/scooter" = "latest"
+"github:dandavison/delta" = "latest"
+marksman = "latest"
 
+{{- if .taskwarrior }}
+task = "latest"
 {{- $linuxArm := and (eq .chezmoi.os "linux") (or (eq .chezmoi.arch "arm64") (eq .chezmoi.arch "aarch64")) }}
-{{- if $needsTaskwarrior }}
 {{- if not $linuxArm }}
 "aqua:kdheepak/taskwarrior-tui" = "latest"
 {{- end }}
 {{- end }}
 
 {{- if .develop }}
-bun = "latest"
-node = "lts"
-shfmt = "latest"
-yq = "latest"
+
+{{- if .opencode }}
+opencode = "latest"
+{{- end }}
 "github:max-sixty/worktrunk" = { version = "latest", bin = "wt" }
-"github:dprint/dprint" = "latest"
-"github:charmbracelet/glow" = "latest"
-"github:sxyazi/yazi" = "latest"
+
+bun = "latest"
+yq = "latest"
+shfmt = "latest"
 helm-ls = "latest"
-"github:thomasschafer/scooter" = "latest"
-"github:dandavison/delta" = "latest"
-"github:jesseduffield/lazygit" = "latest"
-"github:zellij-org/zellij" = "0.44.1"
-"npm:@olrtg/emmet-language-server" = { version = "latest", bin = "emmet-ls" }
 "npm:prettier" = "latest"
 "npm:yaml-language-server" = "latest"
 "npm:bash-language-server" = "latest"
@@ -47,30 +49,36 @@ helm-ls = "latest"
 "npm:dockerfile-language-server-nodejs" = "latest"
 "npm:@microsoft/compose-language-service" = "latest"
 
-{{- if $languageGo }}
+{{- if .language_go }}
 go = "latest"
-"go:golang.org/x/tools/gopls" = "latest"
-"go:mvdan.cc/gofumpt" = "latest"
+gotestsum = "latest"
+gofumpt = "latest"
+gopls = "latest"
 "go:github.com/go-delve/delve/cmd/dlv" = "latest"
 "github:golangci/golangci-lint" = "latest"
 {{- end }}
 
-{{- if $languageRuby }}
+{{- if .language_ruby }}
 ruby = "latest"
 "gem:ruby-lsp" = { version = "latest", depends = ["ruby"] }
-"gem:rufo" = { version = "latest", depends = ["ruby"] }
+"gem:standardrb" = { version = "latest", depends = ["ruby"] }
 {{- end }}
 
-{{- if or $languageRust $buildHelixFromSource }}
+{{- if .language_elixir }}
+rebar = "latest"
+erlang = "latest"
+elixir = "latest"
+expert = "latest"
+{{- end }}
+
+{{- if or .language_rust .build_helix_from_source }}
 rust = "stable"
 {{- end }}
 
-{{- if $languageScala }}
+{{- if .language_scala }}
 java = "temurin-21"
 "github:scalameta/scalafmt" = "latest"
-[tools."github:coursier/coursier"]
-  version = "latest"
-  asset_pattern = "coursier"
-  bin = "cs"
+"github:coursier/coursier" = { version = "latest", asset_pattern = "coursier", bin = "cs" }
 {{- end }}
+
 {{- end }}
