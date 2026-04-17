@@ -1,5 +1,3 @@
-{{- $manageLimaVMsFromThisHost := .manage_lima_vms_from_this_host -}}
-
 if [[ -f "$HOME/.ivy2/.credentials" ]]; then
 	export SBT_CREDENTIALS="$HOME/.ivy2/.credentials"
 fi
@@ -28,11 +26,12 @@ fi
 		echo "Coursier credentials file missing"
 	fi
 }
-{{- else if $manageLimaVMsFromThisHost }}
+{{- else if .jfrog }}
 ,jfrog_oidc_env() {
 	echo "Exporting jfrog credentials from 1Password"
 	export JFROG_OIDC_USER="$(op read "op://Private/JFROG_OIDC/username")"
 	export JFROG_OIDC_TOKEN="$(op read "op://Private/JFROG_OIDC/password")"
+	export JFROG_CREDENTIALS=$JFROG_OIDC_USER:$JFROG_OIDC_TOKEN
 
 	echo "Set JFROG_OIDC_USER and JFROG_OIDC_TOKEN"
 }
