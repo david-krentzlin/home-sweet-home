@@ -27,7 +27,7 @@ fi
 }
 
 ,jfrog_oidc_env() {
-	echo "Exporting jfrog credentials from 1Password"
+	echo "Exporting jfrog credentials from password manager"
 	{{- if .op }}
 		export JFROG_OIDC_USER="$(op read "op://{{ .jfrog_secret_path }}/username")"
 		export JFROG_OIDC_TOKEN="$(op read "op://{{ .jfrog_secret_path }}/password")"
