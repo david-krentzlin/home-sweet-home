@@ -29,8 +29,17 @@ fi
 {{- else if .jfrog }}
 ,jfrog_oidc_env() {
 	echo "Exporting jfrog credentials from 1Password"
-	export JFROG_OIDC_USER="$(op read "op://Private/JFROG_OIDC/username")"
-	export JFROG_OIDC_TOKEN="$(op read "op://Private/JFROG_OIDC/password")"
+	if [[ command -v op ]]; then
+		export JFROG_OIDC_USER="$(op read "op://{{ .jfrog_secret_path }}/username")"
+		export JFROG_OIDC_TOKEN="$(op read "op://{{ .jfrog_secret_path }}/password")"
+	elif [[ command -v gopass ]]; then
+		export JFROG_OIDC_USER="$(gopass show -o websites/{{- .jfrog_secret_path -}} username)"
+		export JFROG_OIDC_TOKEN="$(gopass show -o websites/{{- .jfrog_secret_path -}})"
+	else
+		echo "Could not find your password manager. Neither op nor gopass found."
+		return 1
+	fi
+
 	export JFROG_CREDENTIALS=$JFROG_OIDC_USER:$JFROG_OIDC_TOKEN
 
 	echo "Set JFROG_OIDC_USER and JFROG_OIDC_TOKEN"
