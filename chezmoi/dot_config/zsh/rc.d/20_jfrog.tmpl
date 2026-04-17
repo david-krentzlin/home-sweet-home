@@ -6,7 +6,6 @@ if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/coursier/credentials.properties" ]];
 	export COURSIER_CREDENTIALS="${XDG_CONFIG_HOME:-$HOME/.config}/coursier/credentials.properties"
 fi
 
-{{- if .develop }}
 ,jfrog_oidc_status() {
 	if [[ -n "${JFROG_OIDC_USER:-}" && -n "${JFROG_OIDC_TOKEN:-}" ]]; then
 		echo "JFrog OIDC environment is loaded"
@@ -26,7 +25,8 @@ fi
 		echo "Coursier credentials file missing"
 	fi
 }
-{{- else if .jfrog }}
+
+{{- if .jfrog }}
 ,jfrog_oidc_env() {
 	echo "Exporting jfrog credentials from 1Password"
 	if [[ command -v op ]]; then
