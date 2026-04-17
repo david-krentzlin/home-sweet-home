@@ -32,7 +32,7 @@ fi
 		export JFROG_OIDC_USER="$(op read "op://{{ .jfrog_secret_path }}/username")"
 		export JFROG_OIDC_TOKEN="$(op read "op://{{ .jfrog_secret_path }}/password")"
 	{{- else if .gopass }}
-		export JFROG_OIDC_USER="$(gopass show -o websites/{{- .jfrog_secret_path -}} username)"
+		export JFROG_OIDC_USER="$(gopass show -o websites/{{- .jfrog_secret_path }} username)"
 		export JFROG_OIDC_TOKEN="$(gopass show -o websites/{{- .jfrog_secret_path -}})"
 	{{- else }}
 		echo "Could not find your password manager. Neither op nor gopass found."
