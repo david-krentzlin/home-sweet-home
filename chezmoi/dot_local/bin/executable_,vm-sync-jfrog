@@ -28,7 +28,7 @@ url_encode() {
 }
 
 INSTANCE_NAME="dev"
-JFROG_HOST=""
+JFROG_HOST="newwork.jfrog.io"
 JFROG_REALM="Artifactory Realm"
 RUBY_HOST=""
 
@@ -51,7 +51,7 @@ while [[ $# -gt 0 ]]; do
       shift 2
       ;;
     -h | --help)
-      echo "Usage: bootstrap/vm/sync-jfrog.sh --host HOST [--realm REALM] [--ruby-host HOST] [--vm-name NAME]"
+      echo "Usage: ,vm-sync-jfrog --host HOST [--realm REALM] [--ruby-host HOST] [--vm-name NAME]"
       exit 0
       ;;
     *)

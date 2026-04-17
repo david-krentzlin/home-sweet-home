@@ -21,6 +21,12 @@
 
 {{- $needsTaskwarrior := promptBoolOnce . "needs_taskwarrior" "Should Taskwarrior be setup on this machine" -}}
 
+$jfrog = true
+$jfrog = {{ promptBoolOnce . "jfrog" "Do you need jfrog support?" }}
+
+$docker_podman_shim = true
+$docker_podman_shim {{ promptBoolOnce . "docker_podman_shim" "Should podman be aliased to docker?" }}
+
 [data]
 develop = {{ $develop }}
 opencode = {{ $needsOpencode }}
@@ -37,6 +43,8 @@ git_author_name = {{ promptStringOnce . "git_author_name" "Git author name" | qu
 git_email = {{ promptStringOnce . "git_email" "Git author email" | quote }}
 git_ssh_key_name = {{ promptStringOnce . "git_ssh_key_name"  "Name of the ssh key"  | quote }}
 github_username = {{ promptStringOnce . "github_username" "GitHub username" | quote }}
+jfrog = $jfrog
+docker_podman_shim = $docker_podman_shim
 
 [warnings]
 configFileTemplateHasChanged = false
