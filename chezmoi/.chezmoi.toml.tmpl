@@ -31,6 +31,7 @@ $docker_podman_shim {{ promptBoolOnce . "docker_podman_shim" "Should podman be a
 develop = {{ $develop }}
 opencode = {{ $needsOpencode }}
 taskwarrior = {{ $needsTaskwarrior }}
+gopass = {{ promptBoolOnce . "gopass" "Should gopass be installed?" }}
 has_gui = {{ $hasGui }}
 manage_lima_vms_from_this_host = {{ $manageLimaVmsFromThisHost }}
 build_helix_from_source = {{ $buildHelixFromSource }}
