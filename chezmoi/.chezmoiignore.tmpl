@@ -8,10 +8,6 @@
 {{- end }}
 
 
-{{- if not .jfrog }}
-.local/bin/,vm-sync-jfrog
-.config/zsh/rc.d/20_jfrog
-{{- end }}
 
 {{- if not .build_helix_from_source }}
 ./local/bin/,helix-install
@@ -23,6 +19,8 @@
 
 {{- if not .jfrog }}
 .local/bin/executable_,vm-sync-jfrog
+.local/bin/,vm-sync-jfrog
+.config/zsh/rc.d/20_jfrog
 {{- end }}
 
 {{- if not .has_gui }}

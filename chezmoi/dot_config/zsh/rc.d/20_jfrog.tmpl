@@ -26,7 +26,6 @@ fi
 	fi
 }
 
-{{- if .jfrog }}
 ,jfrog_oidc_env() {
 	echo "Exporting jfrog credentials from 1Password"
 	if [[ command -v op ]]; then
@@ -44,4 +43,3 @@ fi
 
 	echo "Set JFROG_OIDC_USER and JFROG_OIDC_TOKEN"
 }
-{{- end }}
